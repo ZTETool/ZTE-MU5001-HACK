@@ -274,8 +274,8 @@ function ftb() {
     <div id="hack_menu">
     <h2>
       <center>
-        <a href="https://github.com/the-harry/ZTE-MU5001-BROWSER-HACK" target="_blank">
-          ZTE MU5001 BROWSER HACK V2
+        <a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
+          ZTE-MU5001-HACK V2
         </a>
       </center>
     </h2>
@@ -366,4 +366,4 @@ function ftb() {
   `);
 }
 
-signal = "", version = "V2", $("#txtUserName").attr("maxlength", "100"), console.log("INITIALIZING ZTE-MU5001 BROWSER HACK " + version + "..."), window.setInterval(getStatus, 200), $("#change").prop("disabled", false);
+signal = "", version = "V2", $("#txtUserName").attr("maxlength", "100"), console.log("INITIALIZING ZTE-MU5001-HACK " + version + "..."), window.setInterval(getStatus, 200), $("#change").prop("disabled", false);
