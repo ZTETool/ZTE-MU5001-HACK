@@ -60,12 +60,35 @@ function nrbandselection() {
 }
 
 function reboot() {
-  $.ajax({type: "GET", url: "/goform/goform_get_cmd_process", data: {cmd: "wa_inner_version,cr_version,RD", multi_data: "1"}, dataType: "json", success: function (a) {
-    ad = hex_md5(hex_md5(a.wa_inner_version + a.cr_version) + a.RD), $.ajax({type: "POST", url: "/goform/goform_set_cmd_process", data: {isTest: "false", goformId: "REBOOT_DEVICE", AD: ad}, success: function (a) {
-      console.log(a);
-    }, error: err});
-  }});
+  // Display a confirmation prompt
+  const userConfirmed = window.confirm("Are you sure you want to reboot?");
+
+  // Proceed with the reboot only if the user confirms
+  if (userConfirmed) {
+    $.ajax({
+      type: "GET",
+      url: "/goform/goform_get_cmd_process",
+      data: { cmd: "wa_inner_version,cr_version,RD", multi_data: "1" },
+      dataType: "json",
+      success: function (a) {
+        ad = hex_md5(hex_md5(a.wa_inner_version + a.cr_version) + a.RD);
+        $.ajax({
+          type: "POST",
+          url: "/goform/goform_set_cmd_process",
+          data: { isTest: "false", goformId: "REBOOT_DEVICE", AD: ad },
+          success: function (a) {
+            console.log(a);
+          },
+          error: err,
+        });
+      },
+    });
+  } else {
+    // Log a message indicating that the user canceled the reboot
+    console.log("Reboot canceled by the user.");
+  }
 }
+
 
 function i1() {
   $.ajax({type: "GET", url: "/goform/goform_get_cmd_process", data: {cmd: "hardware_version,web_version,wa_inner_version,cr_version,RD", multi_data: "1"}, dataType: "json", success: function (a) {
@@ -92,6 +115,20 @@ function setdns() {
   }}));
 }
 
+function openTab(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
 function ftb() {
   $(".color_background_blue").css("background-color", "#456");
   $(".headcontainer").hide();
@@ -99,6 +136,7 @@ function ftb() {
     <style>
       .clear {
         clear: both;
+        width: 100%;
       }
       .action{
         background-color: #cc0000;
@@ -164,99 +202,167 @@ function ftb() {
       .v {
         padding-left: 20px;
       }
+      #hack_menu {
+        margin-right: 12vw !important;
+        margin-left: 12vw !important;
+      }
+    .hidden_menu_button {
+      background-color: #04AA6D;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    .hidden_action_button {
+      background-color: #b00;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    .project_button {
+      background-color: #008CBA;
+      color: white;
+    }
+    /* Style the tab */
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+      background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
     </style>
-    <div class="p">
-      <div class="v" id="nr5rsrpb"></div>
+    <div id="hack_menu">
+    <h2>
+      <center>
+        <a href="https://github.com/the-harry/ZTE-MU5001-BROWSER-HACK" target="_blank">
+          ZTE MU5001 BROWSER HACK V2
+        </a>
+      </center>
+    </h2>
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'METRICS')">METRICS</button>
+      <button class="tablinks" onclick="openTab(event, 'HIDDEN_MENUS')">HIDDEN MENUS</button>
+      <button class="tablinks" onclick="openTab(event, 'HIDDEN_ACTIONS')">HIDDEN ACTIONS</button>
     </div>
-    <div class="p">
-      <div class="v" id="rsrpb"></div>
+
+    <div id="METRICS" class="tabcontent">
+      <hr>
+      <center><a onclick="i1()">SOFTWARE VERSION INFO</a></center>
+      <hr>
+      <center><code>Signal strength</code></center>
+      <div id="signal_bar">
+        <div class="p">
+          <div class="v" id="nr5rsrpb"></div>
+        </div>
+        <div class="p">
+          <div class="v" id="rsrpb"></div>
+        </div>
+        <div class="p">
+          <div class="v" id="rsrqb"></div>
+        </div>
+      </div>
+      <hr>
+      <center><code>WAN</code></center>
+      <ul>
+        <li>External IP: <span id="wan_ipaddr"></span></li>
+        <li>DNS SERVERS: <span id="dns_mode"></span></li>
+      </ul>
+      <hr>
+      <center><code>4g/5g Metrics</code></center>
+      <ul>
+        <li>RSRP:<span id="lte_rsrp"></span>dBm</li>
+        <li>RSRQ:<span id="lte_rsrq"></span>dB</li>
+        <li>RSSI:<span id="lte_rssi"></span>dBm</li>
+        <li>SINR:<span id="lte_snr"></span>dB</li>
+        <li>5SINR:<span id="Z5g_SINR"></span>dB</li>
+        <li id="network_type">NETWORK TYPE</li>
+        <li>ENB ID:<a id="lteitaly" target="lteitaly" href="#"><span id="enbid">#</span></a></li>
+        <li>CELL ID:<span id="cell_id">#</span></li>
+        <br>
+        <li>MAIN:<span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth"></span></li>
+        <li id="ca">CA:<span id="lte_multi_ca_scell_info"></span></li>
+        <li>CELL LOCK MODE: <span id="earfcn_lock"></span></li>
+        <li> <a onclick="i2()">EXTRA BANDS INFO</a> </li>
+        <li><a href="#network_info">View Full Network Information</a></li>
+      </ul>
+      <hr>
+      <center><code>Temperature Metrics</code></center>
+      <ul>
+        <li>4G:<span id="pm_sensor_mdm"></span>°</li>
+        <br>
+        <li>5G:<span id="pm_modem_5g"></span>°</li>
+        <br>
+        <li><a href="#temp_status">View Full Temperature Metrics</a></li>
+      </ul>
+      </hr>
     </div>
-    <div class="p">
-      <div class="v" id="rsrqb"></div>
+
+    <div id="HIDDEN_MENUS" class="tabcontent f clear">
+      <hr>
+      <ul>
+        <li><a href="#debug_page" class="hidden_menu_button">Debug</a></li>
+        <li><a href="#fastboot" class="hidden_menu_button">FastBoot</a></li>
+        <li><a href="#pcie_powersave" class="hidden_menu_button">Power Save</a></li>
+        <li><a href="#vpn_client" class="hidden_menu_button">VPN client</a></li>
+        <li><a href="#mec_setting" class="hidden_menu_button">MEC Settings</a></li>
+        <li><a href="#wifi_main" class="hidden_menu_button">WIFI</a></li>
+      </ul>
+      <hr>
     </div>
-    <div style="display:block;overflow: auto;">
-      <div class="f">
-        <ul>
-          <li>RSRP:<span id="lte_rsrp"></span>dBm</li>
-          <li>RSRQ:<span id="lte_rsrq"></span>dB</li>
-          <li>RSSI:<span id="lte_rssi"></span>dBm</li>
-          <li>SINR:<span id="lte_snr"></span>dB</li>
-          <li>5SINR:<span id="Z5g_SINR"></span>dB</li>
-        </ul>
-      </div>
-      <div class="f">
-        <ul>
-          <li id="network_type">NETWORK TYPE</li>
-        </ul>
-      </div>
-      <div class="f">
-        <ul>
-          <li>ENB ID:<a id="lteitaly" target="lteitaly" href="#"><span id="enbid">#</span></a></li>
-          <li>CELL ID:<span id="cell_id">#</span></li>
-        </ul>
-      </div>
-      <div class="f">
-        <ul>
-          <li>MAIN:<span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth"></span></li>
-          <li id="ca">CA:<span id="lte_multi_ca_scell_info"></span></li>
-        </ul>
-      </div>
-      <div class="f clear">
-        <p>Hidden Menus
-        <p>
-        <ul>
-          <li><a href="#network_info">Network Info</a></li>
-          <li><a href="#debug_page">Debug</a></li>
-          <li><a href="#fastboot">FastBoot</a></li>
-          <li><a href="#pcie_powersave">Power Save</a></li>
-          <li><a href="#vpn_client">Vpn client</a></li>
-          <li><a href="#temp_status">Temp Status</a></li>
-          <li><a href="#bsp_tc_settings">Temp Settings</a></li>
-          <li><a href="#mec_setting">MEC Settings</a></li>
-          <li><a href="#wifi_main">Wifi</a></li>
-        </ul>
-      </div>
-      <div class="f">
-        <ul>
-          <li>WAN IP:<span id="wan_ipaddr"></span></li>
-        </ul>
-      </div>
-      <div class="f">
-        <ul>
-          <li>Temp</li>
-          <li>4G:<span id="pm_sensor_mdm"></span>°</li>
-          <li>5G:<span id="pm_modem_5g"></span>°</li>
-        </ul>
-      </div>
-      <div class="f clear">
-        <ul>
-          <li><a class="action" onclick="ltebandselection()">SET 4G</a></li>
-          <li><a class="action" onclick="nrbandselection()">SET 5G</a></li>
-        </ul>
-      </div>
-      <div class="f">
-        <ul>
-          <li><a class="action" onclick="setdns()">DNS&nbsp;MODE</a><span id="dns_mode"></span></li>
-        </ul>
-      </div>
-      <div class="f">
-        <ul>
-          <li> <a class="action" onclick="i2()">INFO</a> </li>
-          <li> <a class="action" onclick="cslock()">CELL LOCK</a> <span id="earfcn_lock"></span> </li>
-        </ul>
-      </div>
-      <div class="f">
-        <ul>
-          <li> <a class="action" onclick="reboot()">! REBOOT !</a> </li>
-        </ul>
-      </div>
-      <div class="f">
-        <ul>
-          <li> <a class="action" onclick="i1()">VER</a> </li>
-        </ul>
-      </div>
+
+    <div id="HIDDEN_ACTIONS" class="tabcontent f clear">
+      <hr>
+      <ul>
+        <li><a class="action hidden_action_button" onclick="ltebandselection()">SET 4G</a></li>
+        <li><a class="action hidden_action_button" onclick="nrbandselection()">SET 5G</a></li>
+        <li><a class="action hidden_action_button" onclick="setdns()">DNS&nbsp;MODE</a></li>
+        <li> <a class="action hidden_action_button" onclick="cslock()">CELL LOCK</a></li>
+        <li> <a class="action hidden_action_button" onclick="reboot()">REBOOT</a> </li>
+      </ul>
+      <hr>
     </div>
-    <a href="https://github.com/the-harry/ZTE-MU5001-BROWSER-HACK" target="_blank">ZTE MU5001 BROWSER HACK V2</a>
+    <div>
+    <br><hr>
   `);
 }
 
