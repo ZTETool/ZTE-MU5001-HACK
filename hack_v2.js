@@ -444,6 +444,13 @@ function openTab(event, tabName) {
   event.currentTarget.className += " active";
 }
 
+function scrowDown() {
+  window.scroll({
+    top: window.innerHeight,
+    behavior: 'smooth'
+  });
+}
+
 function menuHtmlBody() {
   return `
     <style>
@@ -636,7 +643,7 @@ function menuHtmlBody() {
         <li id="ca">CA:<span id="lte_multi_ca_scell_info"></span></li>
         <li>CELL LOCK MODE: <span id="earfcn_lock"></span></li>
         <li> <a onclick="extraBandsInfo()">EXTRA BANDS INFO</a> </li>
-        <li><a href="#network_info">View Full Network Information</a></li>
+        <li><a href="#network_info" onclick="scrowDown()">View Full Network Information</a></li>
       </ul>
       <hr>
       <center><code>Temperature Metrics</code></center>
@@ -645,7 +652,7 @@ function menuHtmlBody() {
         <br>
         <li>5G:<span id="pm_modem_5g"></span>°</li>
         <br>
-        <li><a href="#temp_status">View Full Temperature Metrics</a></li>
+        <li><a href="#temp_status" onclick="scrowDown()">View Full Temperature Metrics</a></li>
       </ul>
       </hr>
     </div>
