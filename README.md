@@ -18,7 +18,11 @@ V1 screenshot
 ![V1](https://i.ibb.co/12WwG4Q/Screenshot-24.png)
 
 V2 screenshot
-![V2](TODO AFTER FE CHANGES)
+![V2.pt1](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK/assets/38408536/2ba7470e-36bf-4abf-bf2d-390def86d689)
+![V2.pt2](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK/assets/38408536/ddfb3c74-778d-4982-bdc0-6722e93c7577)
+![V2.pt3](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK/assets/38408536/1bcdd2d1-37d0-4b10-8576-3c1164001de1)
+![V2.pt4](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK/assets/38408536/68dd2d43-1e42-4dcd-a28f-ebfdfffc7437)
+
 
 ### HIDDEN MENUS
 

@@ -454,33 +454,14 @@ function scrowDown() {
 function menuHtmlBody() {
   return `
     <style>
-      .clear {
+      /* MENU ITEMS */
+      #hack_menu {
+        margin-right: 12vw !important;
+        margin-left: 12vw !important;
+      }
+      .menu_item {
         clear: both;
         width: 100%;
-      }
-      .action{
-        background-color: #cc0000;
-        padding: 10px;
-        border-radius:10px;
-        color: white;
-        font-weight:bolder;
-        margin-right: 5px;
-        margin-left: 5px;
-      }
-      .action:hover{
-        color: white;
-      }
-      li span{
-        margin-left: 5px;
-      }
-      #lte_ca_pcell_bandwidth{
-        margin-left:0;
-      }
-      #lte_rsrq, #lte_rsrp, #lte_rssi, #enbid, #lte_snr, #Z5g_SINR, #cell_id, #lte_ca_pcell_band, #pm_sensor_mdm, #pm_modem_5g, #earfcn_lock, #wan_ipaddr {
-        color: #b00;
-        font-weight: strong;
-      }
-      .f {
         float: left;
         border: 1px solid #bbb;
         border-radius: 5px;
@@ -488,11 +469,32 @@ function menuHtmlBody() {
         line-height: 2em;
         margin: 5px;
       }
-      .f ul {
+      li span {
+        margin-left: 5px;
+      }
+      #lte_ca_pcell_bandwidth {
+        margin-left: 0;
+      }
+      #lte_rsrq,
+      #lte_rsrp,
+      #lte_rssi,
+      #enbid,
+      #lte_snr,
+      #Z5g_SINR,
+      #cell_id,
+      #lte_ca_pcell_band,
+      #pm_sensor_mdm,
+      #pm_modem_5g,
+      #earfcn_lock,
+      #wan_ipaddr {
+        color: #b00;
+        font-weight: strong;
+      }
+      .menu_item ul {
         margin: 0;
         padding: 0;
       }
-      .f ul li {
+      .menu_item ul li {
         display: inline;
         margin-right: 5px;
         margin-left: 5px;
@@ -504,92 +506,73 @@ function menuHtmlBody() {
         font-weight: bold;
         text-decoration: underline;
       }
-      .p {
+      .bar_div {
         border-bottom: 1px solid #ccc;
         width: auto;
         height: 20px;
       }
-      .v {
+      .bar_item {
         height: 100%25;
-        border-right:1px solid #ccc;
-      }
-      .sb {
-        padding: 10px;
-        border-radius: 10px;
-        display: inline-block;
-        margin: 10px 0 10px 10px;
-      }
-      .v {
+        border-right: 1px solid #ccc;
         padding-left: 20px;
       }
-      #hack_menu {
-        margin-right: 12vw !important;
-        margin-left: 12vw !important;
+
+      /* BUTTONS */
+      .base_button {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 10px;
+        color: white;
+        font-weight: bolder;
+        margin-right: 5px;
+        margin-left: 5px;
       }
-    .hidden_menu_button {
-      background-color: #04AA6D;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-    }
-    .hidden_action_button {
-      background-color: #b00;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-    }
-    .project_button {
-      background-color: #008CBA;
-      color: white;
-    }
-    /* Style the tab */
-    .tab {
-      overflow: hidden;
-      border: 1px solid #ccc;
-      background-color: #f1f1f1;
-    }
+      .base_button:hover {
+        color: white;
+      }
+      .hidden_menu_button {
+        background-color: green;
+      }
+      .hidden_action_button {
+        background-color: purple;
+      }
 
-    /* Style the buttons inside the tab */
-    .tab button {
-      background-color: inherit;
-      float: left;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      padding: 14px 16px;
-      transition: 0.3s;
-      font-size: 17px;
-    }
-
-    /* Change background color of buttons on hover */
-    .tab button:hover {
-      background-color: #ddd;
-    }
-
-    /* Create an active/current tablink class */
-    .tab button.active {
-      background-color: #ccc;
-    }
-
-    /* Style the tab content */
-    .tabcontent {
-      display: none;
-      padding: 6px 12px;
-      border: 1px solid #ccc;
-      border-top: none;
-    }
+      /* TAB */
+      .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+      }
+      .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+      }
+      .tab button:hover {
+        background-color: #ddd;
+      }
+      .tab button.active {
+        background-color: #ccc;
+      }
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+      }
     </style>
     <div id="hack_menu">
     <h2>
@@ -611,14 +594,14 @@ function menuHtmlBody() {
       <hr>
       <center><code>Signal strength</code></center>
       <div id="signal_bar">
-        <div class="p">
-          <div class="v" id="nr5rsrpb"></div>
+        <div class="bar_div">
+          <div class="bar_item" id="nr5rsrpb"></div>
         </div>
-        <div class="p">
-          <div class="v" id="rsrpb"></div>
+        <div class="bar_div">
+          <div class="bar_item" id="rsrpb"></div>
         </div>
-        <div class="p">
-          <div class="v" id="rsrqb"></div>
+        <div class="bar_div">
+          <div class="bar_item" id="rsrqb"></div>
         </div>
       </div>
       <hr>
@@ -657,27 +640,27 @@ function menuHtmlBody() {
       </hr>
     </div>
 
-    <div id="HIDDEN_MENUS" class="tabcontent f clear">
+    <div id="HIDDEN_MENUS" class="tabcontent menu_item">
       <hr>
       <ul>
-        <li><a href="#debug_page" class="hidden_menu_button">Debug</a></li>
-        <li><a href="#fastboot" class="hidden_menu_button">FastBoot</a></li>
-        <li><a href="#pcie_powersave" class="hidden_menu_button">Power Save</a></li>
-        <li><a href="#vpn_client" class="hidden_menu_button">VPN client</a></li>
-        <li><a href="#mec_setting" class="hidden_menu_button">MEC Settings</a></li>
-        <li><a href="#wifi_main" class="hidden_menu_button">WIFI</a></li>
+        <li><a href="#debug_page" class="hidden_menu_button base_button">Debug</a></li>
+        <li><a href="#fastboot" class="hidden_menu_button base_button">FastBoot</a></li>
+        <li><a href="#pcie_powersave" class="hidden_menu_button base_button">Power Save</a></li>
+        <li><a href="#vpn_client" class="hidden_menu_button base_button">VPN client</a></li>
+        <li><a href="#mec_setting" class="hidden_menu_button base_button">MEC Settings</a></li>
+        <li><a href="#wifi_main" class="hidden_menu_button base_button">WIFI</a></li>
       </ul>
       <hr>
     </div>
 
-    <div id="HIDDEN_ACTIONS" class="tabcontent f clear">
+    <div id="HIDDEN_ACTIONS" class="tabcontent menu_item">
       <hr>
       <ul>
-        <li><a class="action hidden_action_button" onclick="lteBandSelection()">SET 4G</a></li>
-        <li><a class="action hidden_action_button" onclick="nrBandSelection()">SET 5G</a></li>
-        <li><a class="action hidden_action_button" onclick="setDNS()">SET CUSTOM DNS</a></li>
-        <li> <a class="action hidden_action_button" onclick="cellLock()">CELL LOCK</a></li>
-        <li> <a class="action hidden_action_button" onclick="reboot()">REBOOT</a> </li>
+        <li><a class="hidden_action_button base_button" onclick="lteBandSelection()">SET 4G</a></li>
+        <li><a class="hidden_action_button base_button" onclick="nrBandSelection()">SET 5G</a></li>
+        <li><a class="hidden_action_button base_button" onclick="setDNS()">SET CUSTOM DNS</a></li>
+        <li> <a class="hidden_action_button base_button" onclick="cellLock()">CELL LOCK</a></li>
+        <li> <a class="hidden_action_button base_button" onclick="reboot()">REBOOT</a> </li>
       </ul>
       <hr>
     </div>
