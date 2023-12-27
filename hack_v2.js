@@ -12,8 +12,8 @@ function getStatus() {
       multi_data: "1",
     },
     dataType: "json",
-    success: function (a) {
-      for (signal = a, vars = [
+    success: function (data) {
+      for (signal = data, vars = [
           "lte_pci",
           "lte_pci_lock",
           "lte_earfcn_lock",
@@ -43,29 +43,29 @@ function getStatus() {
           "lte_rsrq",
           "lte_ca_pcell_bandwidth",
           "lte_ca_pcell_band",
-        ], e = 0; e < vars.length; e++) window[vars[e]] = a[vars[e]];
+        ], i = 0; i < vars.length; i++) window[vars[i]] = data[vars[i]];
 
-      if ($("#nr5rsrpb").parent().toggle("" != a.nr5g_action_band)) {
-        $("#Z5g_SINR").parent().toggle("" != a.nr5g_action_band);
+      if ($("#nr5rsrpb").parent().toggle("" != data.nr5g_action_band)) {
+        $("#Z5g_SINR").parent().toggle("" != data.nr5g_action_band);
         setGraph("nr5rsrp", Z5g_rsrp, -130, -60);
         setGraph("rsrp", lte_rsrp, -130, -60);
         setGraph("rsrq", lte_rsrq, -16, -3);
       }
 
-      cell_id = parseInt(cell_id, 16);
-      enbid = Math.trunc(cell_id / 256);
+      cellId = parseInt(cell_id, 16);
+      enbId = Math.trunc(cellId / 256);
       $("#earfcn_lock").html(lte_pci_lock + "/" + lte_earfcn_lock);
 
       plmn = rmcc.toString() + rmnc.toString();
-      $("#enbid").html(enbid);
+      $("#enbid").html(enbId);
 
       if ("22201" == plmn) plmn = "2221";
       if ("22299" == plmn) plmn = "22288";
-      if ("22250" == plmn && 6 == enbid.length) plmn = "22288";
+      if ("22250" == plmn && 6 == enbId.length) plmn = "22288";
 
-      link_lte =
-        "https://www.cellmapper.net/map?MCC=" + plmn + "." + enbid;
-      $("#lteitaly").attr("href", link_lte);
+      linkLte =
+        "https://www.cellmapper.net/map?MCC=" + plmn + "." + enbId;
+      $("#lteitaly").attr("href", linkLte);
 
       if ("ca_activated" == wan_lte_ca) {
         $("#ca").parent().parent().css("border-color", "red");
@@ -74,34 +74,34 @@ function getStatus() {
       }
 
       if ("" != lte_multi_ca_scell_info) {
-        ca_v = lte_multi_ca_scell_info.slice(0, -1).split(";");
-        ca_txt = "";
-        for (var e = 0; e < ca_v.length; e++) {
-          d = ca_v[e].split(",");
+        caV = lte_multi_ca_scell_info.slice(0, -1).split(";");
+        caTxt = "";
+        for (var i = 0; i < caV.length; i++) {
+          d = caV[i].split(",");
           b = d[3];
           w = d[5];
-          ca_txt +=
+          caTxt +=
             '<span style="color:#b00;">B' +
             b +
             "</span>(@" +
             w +
             "Mhz)+";
         }
-        lte_ca_pcell_band = "B" + lte_ca_pcell_band;
+        lteCaPcellBand = "B" + lte_ca_pcell_band;
       } else {
-        ca_txt = "";
-        lte_ca_pcell_band = wan_active_band;
+        caTxt = "";
+        lteCaPcellBand = wan_active_band;
       }
 
-      if (a.nr5g_action_band) {
-        ca_txt +=
+      if (data.nr5g_action_band) {
+        caTxt +=
           '<span style="padding:5px;border-radius:3px;font-size:1.2em;background-color:#eef;color:red;font-weight:bold;">' +
-          a.nr5g_action_band +
+          data.nr5g_action_band +
           "</span>";
       }
 
-      ca_txt = ca_txt.slice(0, -1);
-      lte_multi_ca_scell_info = ca_txt;
+      caTxt = caTxt.slice(0, -1);
+      lteMultiCaScellInfo = caTxt;
 
       if ("manual" == dns_mode) {
         dns_mode = prefer_dns_manual + " ," + standby_dns_manual;
@@ -110,36 +110,43 @@ function getStatus() {
       dns_mode = dns_mode.replace(/,+$/, "");
       dns_mode = '<span style="color:#b00;">' + dns_mode + "</span>";
 
-      lte_ca_pcell_bandwidth =
+      lteCaPcellBandwidth =
         lte_ca_pcell_bandwidth && "(@" + lte_ca_pcell_bandwidth + "Mhz)";
 
-      for (e = 0; e < vars.length; e++) {
-        $("#" + vars[e]).html(window[vars[e]]);
+      for (i = 0; i < vars.length; i++) {
+        $("#" + vars[i]).html(window[vars[i]]);
       }
     },
   });
 }
 
-function setGraph(a, n, l, r) {
-  trval = n,
-  x = ((n = (n = r < n ? r : n) < l ? l : n) - l) / (r - l) * 100,
-  x <= 30 && (x = 30),
-  100 == x && (x = 30),
-  xs = String(x) + String.fromCharCode(37),
-  e = "#" + a + "b";
+function setGraph(graphId, value, lowerBound, upperBound) {
+  var transformedValue = value;
+  var percentage = ((value = (value = upperBound < value ? upperBound : value) < lowerBound ? lowerBound : value) - lowerBound) / (upperBound - lowerBound) * 100;
 
-  $(e).animate({ width: xs, speed: "fast" });
-  $(e).html(a + " : " + trval);
+  if (percentage <= 30) {
+    percentage = 30;
+  }
 
-  if (x < 50) {
-    $(e).css("background-color", "yellow").css("color", "black");
+  if (100 == percentage) {
+    percentage = 30;
+  }
+
+  var widthString = String(percentage) + String.fromCharCode(37);
+  var elementId = "#" + graphId + "b";
+
+  $(elementId).animate({ width: widthString, speed: "fast" });
+  $(elementId).html(graphId + " : " + transformedValue);
+
+  if (percentage < 50) {
+    $(elementId).css("background-color", "yellow").css("color", "black");
   } else {
-    if (85 < x) {
-      $(e).css("background-color", "orange");
+    if (85 < percentage) {
+      $(elementId).css("background-color", "orange");
     } else {
-      $(e).css("background-color", "green");
+      $(elementId).css("background-color", "green");
     }
-    $(e).css("color", "white");
+    $(elementId).css("color", "white");
   }
 }
 
@@ -163,49 +170,68 @@ function softwareInfo() {
 }
 
 function extraBandsInfo() {
-  if (ca_txt = wan_active_band + " - PCI,EARFCN:" + parseInt(lte_pci, 16) + "," + wan_active_channel, "" != signal.lte_multi_ca_scell_info) {
-    ca_v = signal.lte_multi_ca_scell_info.slice(0, -1).split(";");
-    for (var a = 0; a < ca_v.length; a++) {
-      d = ca_v[a].split(",");
-      b = d[3];
-      e = d[4];
-      p = d[1];
-      ca_txt += "\nB" + b + " - PCI,EARFCN:" + p + "," + e;
+  var bandsInfoText = wan_active_band + " - PCI,EARFCN:" + parseInt(lte_pci, 16) + "," + wan_active_channel;
+
+  if ("" != signal.lte_multi_ca_scell_info) {
+    var caInfoArray = signal.lte_multi_ca_scell_info.slice(0, -1).split(";");
+
+    for (var i = 0; i < caInfoArray.length; i++) {
+      var cellInfo = caInfoArray[i].split(",");
+      var band = cellInfo[3];
+      var earfcn = cellInfo[4];
+      var pci = cellInfo[1];
+      bandsInfoText += "\nB" + band + " - PCI,EARFCN:" + pci + "," + earfcn;
     }
   }
-  ca_txt += "\n\n" + nr5g_action_band + " - PCI:" + nr5g_pci + " - EARFCN:" + nr5g_action_channel;
-  alert(ca_txt);
+
+  bandsInfoText += "\n\n" + nr5g_action_band + " - PCI:" + nr5g_pci + " - EARFCN:" + nr5g_action_channel;
+  alert(bandsInfoText);
 }
 
 // HIDDEN ACTIONS FUNCTIONS
 
 function lteBandSelection() {
-  var a = prompt(
+  var userInput = prompt(
     "Please input LTE bands number, separated by + char (example 1+3+20). If you want to use every supported band, write 'AUTO'.",
     "AUTO"
   );
-  if (null != (a = a && a.toLowerCase()) && "" !== a) {
-    var e = a.split("+"),
-      n = 0;
-    if (((all_bands = "0xA3E2AB0908DF"), "AUTO" === a.toUpperCase())) n = all_bands;
-    else {
-      for (var l = 0; l < e.length; l++) n += Math.pow(2, parseInt(e[l]) - 1);
-      n = "0x" + n.toString(16);
+
+  if (null != (userInput = userInput && userInput.toLowerCase()) && "" !== userInput) {
+    var bandNumbers = userInput.split("+"),
+      bandMask = 0;
+
+    if (((allBands = "0xA3E2AB0908DF"), "AUTO" === userInput.toUpperCase())) {
+      bandMask = allBands;
+    } else {
+      for (var i = 0; i < bandNumbers.length; i++) {
+        bandMask += Math.pow(2, parseInt(bandNumbers[i]) - 1);
+      }
+      bandMask = "0x" + bandMask.toString(16);
     }
+
     $.ajax({
       type: "GET",
       url: "/goform/goform_get_cmd_process",
       data: { cmd: "wa_inner_version,cr_version,RD", multi_data: "1" },
       dataType: "json",
-      success: function (a) {
-        ad = hex_md5(hex_md5(a.wa_inner_version + a.cr_version) + a.RD), $.ajax({
+      success: function (res) {
+        ad = hex_md5(hex_md5(res.wa_inner_version + res.cr_version) + res.RD);
+        $.ajax({
           type: "POST",
           url: "/goform/goform_set_cmd_process",
-          data: { isTest: "false", goformId: "BAND_SELECT", is_gw_band: 0, gw_band_mask: 0, is_lte_band: 1, lte_band_mask: n, AD: ad },
-          success: function (a) {
-            console.log(a);
+          data: {
+            isTest: "false",
+            goformId: "BAND_SELECT",
+            is_gw_band: 0,
+            gw_band_mask: 0,
+            is_lte_band: 1,
+            lte_band_mask: bandMask,
+            AD: ad,
           },
-          error: err,
+          success: function (res) {
+            console.log(res);
+          },
+          error: handleCommunicationError,
         });
       },
     });
@@ -213,42 +239,58 @@ function lteBandSelection() {
 }
 
 function nrBandSelection() {
-  var e,
-    a = (a = prompt(
+  var userInput,
+    userPrompt = (userPrompt = prompt(
       "Please input 5G bands number, separated by + char (example 3+78). If you want to use every supported band, write 'AUTO'.",
       "AUTO"
-    )) && a.toLowerCase();
-  null != a && "" !== a && ((e = a.split("+").join(",")), "AUTO" === a.toUpperCase() && (e = "1,2,3,5,7,8,20,28,38,41,50,51,66,70,71,74,75,76,77,78,79,80,81,82,83,84"), $.ajax({
-    type: "GET",
-    url: "/goform/goform_get_cmd_process",
-    data: { cmd: "wa_inner_version,cr_version,RD", multi_data: "1" },
-    dataType: "json",
-    success: function (a) {
-      ad = hex_md5(hex_md5(a.wa_inner_version + a.cr_version) + a.RD), $.ajax({
-        type: "POST",
-        url: "/goform/goform_set_cmd_process",
-        data: { isTest: "false", goformId: "WAN_PERFORM_NR5G_BAND_LOCK", nr5g_band_mask: e, AD: ad },
-        success: function (a) {
-          console.log(a);
-        },
-        error: err,
-      });
-    },
-  }));
-}
+    )) && userPrompt.toLowerCase();
 
-function setDNS() {
-  var e, a = (a = prompt("Please input 2 DNS servers, separated by \",\"  (example 1.1.1.1,1.0.0.1). If you want to use PROVIDER settings, write 'AUTO'.", "AUTO")) && a.toLowerCase();
-  if (null != a && "" !== a) {
-    e = a.split(",");
-    dns_mode = "auto" === a ? "auto" : "manual";
+  if (null != userPrompt && "" !== userPrompt) {
+    userInput = userPrompt.split("+").join(",");
+
+    if ("AUTO" === userPrompt.toUpperCase()) {
+      userInput = "1,2,3,5,7,8,20,28,38,41,50,51,66,70,71,74,75,76,77,78,79,80,81,82,83,84";
+    }
+
     $.ajax({
       type: "GET",
       url: "/goform/goform_get_cmd_process",
       data: { cmd: "wa_inner_version,cr_version,RD", multi_data: "1" },
       dataType: "json",
-      success: function (a) {
-        ad = hex_md5(hex_md5(a.wa_inner_version + a.cr_version) + a.RD);
+      success: function (res) {
+        ad = hex_md5(hex_md5(res.wa_inner_version + res.cr_version) + res.RD);
+        $.ajax({
+          type: "POST",
+          url: "/goform/goform_set_cmd_process",
+          data: { isTest: "false", goformId: "WAN_PERFORM_NR5G_BAND_LOCK", nr5g_band_mask: userInput, AD: ad },
+          success: function (res) {
+            console.log(res);
+          },
+          error: handleCommunicationError,
+        });
+      },
+    });
+  }
+}
+
+function setDNS() {
+  var userInput,
+    userPrompt = (userPrompt = prompt(
+      "Please input 2 DNS servers, separated by \",\" (example 1.1.1.1,1.0.0.1). If you want to use PROVIDER settings, write 'AUTO'.",
+      "AUTO"
+    )) && userPrompt.toLowerCase();
+
+  if (null != userPrompt && "" !== userPrompt) {
+    userInput = userPrompt.split(",");
+    dnsMode = "auto" === userPrompt ? "auto" : "manual";
+
+    $.ajax({
+      type: "GET",
+      url: "/goform/goform_get_cmd_process",
+      data: { cmd: "wa_inner_version,cr_version,RD", multi_data: "1" },
+      dataType: "json",
+      success: function (res) {
+        ad = hex_md5(hex_md5(res.wa_inner_version + res.cr_version) + res.RD);
         $.ajax({
           type: "POST",
           url: "/goform/goform_set_cmd_process",
@@ -261,19 +303,19 @@ function setDNS() {
             apn_mode: "manual",
             pdp_type: "IP",
             dns_mode: "manual",
-            prefer_dns_manual: e[0],
-            standby_dns_manual: e[1],
+            prefer_dns_manual: userInput[0],
+            standby_dns_manual: userInput[1],
             index: 1,
             AD: ad
           },
-          success: function (a) {
+          success: function (res) {
             $.ajax({
               type: "GET",
               url: "/goform/goform_get_cmd_process",
               data: { cmd: "wa_inner_version,cr_version,RD", multi_data: "1" },
               dataType: "json",
-              success: function (a) {
-                ad = hex_md5(hex_md5(a.wa_inner_version + a.cr_version) + a.RD);
+              success: function (res) {
+                ad = hex_md5(hex_md5(res.wa_inner_version + res.cr_version) + res.RD);
                 $.ajax({
                   type: "POST",
                   url: "/goform/goform_set_cmd_process",
@@ -288,57 +330,71 @@ function setDNS() {
                     index: 1,
                     AD: ad
                   },
-                  error: err
+                  success: function () {
+                    alert("DNS successfully changed!");
+                  },
+                  error: handleCommunicationError
                 });
               },
-              error: err
+              error: handleCommunicationError
             });
           },
-          error: err
+          error: handleCommunicationError
         });
       },
-      error: err
+      error: handleCommunicationError
     });
   }
 }
 
-function lockCell(e, n) {
+function lockCell(ltePciLock, lteEarfcnLock) {
   $.ajax({
     type: "GET",
     url: "/goform/goform_get_cmd_process",
     data: { cmd: "wa_inner_version,cr_version,RD", multi_data: "1" },
     dataType: "json",
-    success: function (a) {
-      ad = hex_md5(hex_md5(a.wa_inner_version + a.cr_version) + a.RD);
+    success: function (res) {
+      var ad = hex_md5(hex_md5(res.wa_inner_version + res.cr_version) + res.RD);
       $.ajax({
         type: "POST",
         url: "/goform/goform_set_cmd_process",
         data: {
           isTest: "false",
           goformId: "LTE_LOCK_CELL_SET",
-          lte_pci_lock: e,
-          lte_earfcn_lock: n,
+          lte_pci_lock: ltePciLock,
+          lte_earfcn_lock: lteEarfcnLock,
           AD: ad,
         },
-        success: function (a) {
-          console.log(a), (j = JSON.parse(a));
-          "success" == j.result
-            ? alert("Now you have to Reboot!")
-            : alert("Error. Modem didn't like it!");
+        success: function (res) {
+          console.log(res);
+          var parsedResult = JSON.parse(res);
+          if ("success" == parsedResult.res) {
+            alert("Now you have to Reboot!");
+          } else {
+            alert("Error. Modem didn't like it!");
+          }
         },
-        error: err,
+        error: handleCommunicationError,
       });
     },
   });
 }
 
-function csLock() {
-  c = parseInt(lte_pci, 16) + "," + wan_active_channel;
-  var a = prompt(
-    "Please input PCI,EARFCN, separated by ',' char (example 116,3350). Leave default for lock on current main band.",
-    c
+function cellLock() {
+  var defaultLockValues = parseInt(lte_pci, 16) + "," + wan_active_channel;
+  var userInput = prompt(
+    "Please input PCI,EARFCN, separated by ',' char (example 116,3350). Leave default for lock on the current main band.",
+    defaultLockValues
   );
-  null != a && "" !== a && ((a = a.split(",")), "YES" == prompt("If you cell lock, you have to RESET your router to take the lock away! If you are sure, type YES (!UPPERCASE)") && lockCell(a[0], a[1]));
+
+  if (userInput !== null && userInput !== "") {
+    var inputValues = userInput.split(",");
+    var confirmation = prompt("If you cell lock, you have to RESET your router to take the lock away! If you are sure, type YES (UPPERCASE)");
+
+    if (confirmation === "YES") {
+      lockCell(inputValues[0], inputValues[1]);
+    }
+  }
 }
 
 function reboot() {
@@ -358,27 +414,34 @@ function reboot() {
           success: function (res) {
             console.log(res);
           },
-          error: err,
+          error: handleCommunicationError,
         });
       },
     });
   }
 }
 
-// FE FUNCTIONS
+// FE & INTERNAL FUNCTIONS
 
-function openTab(evt, tabName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
+function handleCommunicationError(xhr, textStatus, errorThrown) {
+  alert("Communication Error");
+  console.log(xhr);
+  console.log(textStatus);
+  console.log(errorThrown);
+}
+
+function openTab(event, tabName) {
+  var tabs, tabLinks, i;
+  tabs = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabs.length; i++) {
+    tabs[i].style.display = "none";
   }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  tabLinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tabLinks.length; i++) {
+    tabLinks[i].className = tabLinks[i].className.replace(" active", "");
   }
   document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " active";
+  event.currentTarget.className += " active";
 }
 
 function menuHtmlBody() {
@@ -565,7 +628,7 @@ function menuHtmlBody() {
         <li>RSSI:<span id="lte_rssi"></span>dBm</li>
         <li>SINR:<span id="lte_snr"></span>dB</li>
         <li>5SINR:<span id="Z5g_SINR"></span>dB</li>
-        <li id="network_type">NETWORK TYPE</li>
+        <li>NETWORK TYPE: <span id="network_type">NETWORK TYPE</span></li>
         <li>ENB ID:<a id="lteitaly" target="lteitaly" href="#"><span id="enbid">#</span></a></li>
         <li>CELL ID:<span id="cell_id">#</span></li>
         <br>
@@ -606,7 +669,7 @@ function menuHtmlBody() {
         <li><a class="action hidden_action_button" onclick="lteBandSelection()">SET 4G</a></li>
         <li><a class="action hidden_action_button" onclick="nrBandSelection()">SET 5G</a></li>
         <li><a class="action hidden_action_button" onclick="setDNS()">SET CUSTOM DNS</a></li>
-        <li> <a class="action hidden_action_button" onclick="csLock()">CELL LOCK</a></li>
+        <li> <a class="action hidden_action_button" onclick="cellLock()">CELL LOCK</a></li>
         <li> <a class="action hidden_action_button" onclick="reboot()">REBOOT</a> </li>
       </ul>
       <hr>
@@ -622,4 +685,11 @@ function ftb() {
   $("body").prepend(menuHtmlBody());
 }
 
-signal = "", version = "V2", $("#txtUserName").attr("maxlength", "100"), console.log("INITIALIZING ZTE-MU5001-HACK " + version + "..."), window.setInterval(getStatus, 200), $("#change").prop("disabled", false);
+signal = "";
+version = "V2";
+
+$("#txtUserName").attr("maxlength", "100");
+console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");
+
+window.setInterval(getStatus, 200);
+$("#change").prop("disabled", false);
