@@ -648,6 +648,7 @@ function menuHtmlBody() {
         <li><a href="#pcie_powersave" class="hidden_menu_button base_button">Power Save</a></li>
         <li><a href="#vpn_client" class="hidden_menu_button base_button">VPN client</a></li>
         <li><a href="#mec_setting" class="hidden_menu_button base_button">MEC Settings</a></li>
+        <li><a href="#bsp_tc_settings" class="hidden_menu_button base_button">Temperature Settings</a></li>
         <li><a href="#wifi_main" class="hidden_menu_button base_button">WIFI</a></li>
       </ul>
       <hr>
