@@ -47,9 +47,9 @@ function getStatus() {
 
       if ($("#nr5rsrpb").parent().toggle("" != a.nr5g_action_band)) {
         $("#Z5g_SINR").parent().toggle("" != a.nr5g_action_band);
-        setgraph("nr5rsrp", Z5g_rsrp, -130, -60);
-        setgraph("rsrp", lte_rsrp, -130, -60);
-        setgraph("rsrq", lte_rsrq, -16, -3);
+        setGraph("nr5rsrp", Z5g_rsrp, -130, -60);
+        setGraph("rsrp", lte_rsrp, -130, -60);
+        setGraph("rsrq", lte_rsrq, -16, -3);
       }
 
       cell_id = parseInt(cell_id, 16);
@@ -120,7 +120,7 @@ function getStatus() {
   });
 }
 
-function setgraph(a, n, l, r) {
+function setGraph(a, n, l, r) {
   trval = n,
   x = ((n = (n = r < n ? r : n) < l ? l : n) - l) / (r - l) * 100,
   x <= 30 && (x = 30),
@@ -179,7 +179,7 @@ function extraBandsInfo() {
 
 // HIDDEN ACTIONS FUNCTIONS
 
-function ltebandselection() {
+function lteBandSelection() {
   var a = prompt(
     "Please input LTE bands number, separated by + char (example 1+3+20). If you want to use every supported band, write 'AUTO'.",
     "AUTO"
@@ -212,7 +212,7 @@ function ltebandselection() {
   }
 }
 
-function nrbandselection() {
+function nrBandSelection() {
   var e,
     a = (a = prompt(
       "Please input 5G bands number, separated by + char (example 3+78). If you want to use every supported band, write 'AUTO'.",
@@ -237,7 +237,7 @@ function nrbandselection() {
   }));
 }
 
-function setdns() {
+function setDNS() {
   var e, a = (a = prompt("Please input 2 DNS servers, separated by \",\"  (example 1.1.1.1,1.0.0.1). If you want to use PROVIDER settings, write 'AUTO'.", "AUTO")) && a.toLowerCase();
   if (null != a && "" !== a) {
     e = a.split(",");
@@ -302,7 +302,7 @@ function setdns() {
   }
 }
 
-function lockcell(e, n) {
+function lockCell(e, n) {
   $.ajax({
     type: "GET",
     url: "/goform/goform_get_cmd_process",
@@ -332,13 +332,13 @@ function lockcell(e, n) {
   });
 }
 
-function cslock() {
+function csLock() {
   c = parseInt(lte_pci, 16) + "," + wan_active_channel;
   var a = prompt(
     "Please input PCI,EARFCN, separated by ',' char (example 116,3350). Leave default for lock on current main band.",
     c
   );
-  null != a && "" !== a && ((a = a.split(",")), "YES" == prompt("If you cell lock, you have to RESET your router to take the lock away! If you are sure, type YES (!UPPERCASE)") && lockcell(a[0], a[1]));
+  null != a && "" !== a && ((a = a.split(",")), "YES" == prompt("If you cell lock, you have to RESET your router to take the lock away! If you are sure, type YES (!UPPERCASE)") && lockCell(a[0], a[1]));
 }
 
 function reboot() {
@@ -603,10 +603,10 @@ function menuHtmlBody() {
     <div id="HIDDEN_ACTIONS" class="tabcontent f clear">
       <hr>
       <ul>
-        <li><a class="action hidden_action_button" onclick="ltebandselection()">SET 4G</a></li>
-        <li><a class="action hidden_action_button" onclick="nrbandselection()">SET 5G</a></li>
-        <li><a class="action hidden_action_button" onclick="setdns()">DNS&nbsp;MODE</a></li>
-        <li> <a class="action hidden_action_button" onclick="cslock()">CELL LOCK</a></li>
+        <li><a class="action hidden_action_button" onclick="lteBandSelection()">SET 4G</a></li>
+        <li><a class="action hidden_action_button" onclick="nrBandSelection()">SET 5G</a></li>
+        <li><a class="action hidden_action_button" onclick="setDNS()">SET CUSTOM DNS</a></li>
+        <li> <a class="action hidden_action_button" onclick="csLock()">CELL LOCK</a></li>
         <li> <a class="action hidden_action_button" onclick="reboot()">REBOOT</a> </li>
       </ul>
       <hr>
