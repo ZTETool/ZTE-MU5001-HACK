@@ -6,7 +6,12 @@
   "permissions": ["activeTab", "storage"],
   "content_scripts": [
     {
-      "matches": ["http://192.168.0.1/*"],
+      "matches": [
+        "http://192.168.0.1/*",
+        "https://192.168.0.1/*",
+        "http://ufi.ztedevice.com/*",
+        "https://ufi.ztedevice.com/*"
+      ],
       "js": ["content.js"]
     }
   ]
