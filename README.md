@@ -101,6 +101,7 @@ docker-compose up --build
 ## TODO
 
 - Create automated script to deploy openwrt compatible router using USB Ethernet in a raspberry pi(3B+ at least);
-- Improve Front-end;
+- Improve Front-end(move html/css code to separated files);
 - Get DHCP IP list somehow;
 - Add all possible menus to the main menu to facilitate the navigation.
+- Fix CELL tower position broken link;
