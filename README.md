@@ -7,9 +7,9 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 
 ## INSTALATION
 
-- For the V1 approach just copy and paste the code in the browser console as usual(works in any browser).
+- For the V1 approach just copy and paste the code in the browser console as usual(works in any browser). Also can be obfuscated and saved as a favorite as before, but obfuscated version is not released yet.
 
-- For the V2 approach, load it as an unpacked extension in Firefox. Open the `about:debugging` page, click "This Firefox" on the left, and then click "Load Temporary Add-on." Select the `manifest.json` file in your extension directory where you downloaded this project. The extension will run automatically when the active tab is `http://192.168.0.1/*`.
+- For the V2 approach, go to the releases page, download the xpi file, install in your browser, allow incognito if needed. The extension will run automatically when the active tab is `http(s)://192.168.0.1/*` or `http(s)://ufi.ztedevice.com/*`.
 
 
 ## FEATURES
@@ -17,7 +17,7 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 #### Old V1 screenshot
 ![V1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/38f1e026-44fd-47ce-b73e-691672588918)
 
-#### New V2 screenshot
+#### New V2 screenshots
 ![V2.pt1](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK/assets/38408536/2ba7470e-36bf-4abf-bf2d-390def86d689)
 ![V2.pt2](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK/assets/38408536/ddfb3c74-778d-4982-bdc0-6722e93c7577)
 ![v2.pt3](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/5232b58b-d567-4688-bca4-9137299df70e)
@@ -76,6 +76,17 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 - **CELL LOCK** (Input PCI,EARFCN, separated by ',' char (example 116,3350). Leave default for lock on current main band.)
 - **REBOOT** (Reboots after confirmation)
 
+## MANUALLY SIGNING FIREFOX EXT
+
+```bash
+export MOZILLA_API_KEY="user:333333333:000"
+export MOZILLA_API_SECRET=="HUAEHUEHUAEHUAHEUHEAUE"
+
+docker-compose up --build
+
+# xpi file should be available under web-ext-artifacts
+```
+
 ## ORIGINAL CREDITS AND FURTHER RESOURCES
 
 - [ZTE-MU5001 OFFICIAL INSTALLATION GUIDE](https://oss.ztedevices.com/prod/cn/direct/hk/mu5001/MU5001%20User%20Guide%20-0115-1.pdf)
@@ -85,3 +96,11 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 - [Thread on Adslgr.com(Greek)](https://www.adslgr.com/forum/threads/1220156-%CE%9Cifi-mu5001-Secret-settings/page3/)
 - [Old repo for ZTE-MU5001-BROWSER-HACK(404)](https://github.com/sklavosit/ZTE-MU5001-BROWSER-HACK)
 - [mifi-mu5001-lib firmware(reverse engineered)](https://github.com/DarkNikGr/mifi-mu5001-lib/)
+
+
+## TODO
+
+- Create automated script to deploy openwrt compatible router using USB Ethernet in a raspberry pi(3B+ at least);
+- Improve Front-end;
+- Get DHCP IP list somehow;
+- Add all possible menus to the main menu to facilitate the navigation.

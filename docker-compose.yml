@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/zte
+    tty: true
+    stdin_open: true
+    environment:
+      MOZILLA_API_KEY: ${MOZILLA_API_KEY}
+      MOZILLA_API_SECRET: ${MOZILLA_API_SECRET}

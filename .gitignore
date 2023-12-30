@@ -1,0 +1,4 @@
+node_modules
+package*
+web-ext-artifacts
+.web-extension-id
