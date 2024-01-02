@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ZTE-MU5001-BROWSER-HACK",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Enables hidden menus for the ZTE-MU5001 router.",
   "permissions": ["activeTab", "storage"],
   "content_scripts": [

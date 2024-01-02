@@ -483,10 +483,14 @@ function menuHtmlBody() {
   .column {
     float: left;
     word-wrap: break-word;
+    border-left:1px solid #000;
   }
 
   .metrics {
     width: 25%;
+    height: 100%;
+    border-left:1px solid #000;
+    height:40vh;
   }
 
   .menus {
@@ -497,30 +501,6 @@ function menuHtmlBody() {
     content: "";
     display: table;
     clear: both;
-  }
-
-  /* BUTTONS */
-
-  .hidden_action_button {
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 10px;
-  color: white;
-  font-weight: bolder;
-  margin-right: 5px;
-  margin-left: 5px;
-  background-color: purple;
-  }
-  .hidden_action_button:hover {
-  color: white;
   }
 
   /* TAB */
@@ -560,20 +540,20 @@ function menuHtmlBody() {
   <h2>
     <center>
       <a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
-        ZTE-MU5001-HACK V2.1.1
+        ZTE-MU5001-HACK V2.2.0
       </a>
     </center>
   </h2>
   <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'METRICS')">METRICS</button>
     <button class="tablinks" onclick="openTab(event, 'HIDDEN_MENUS')">MENUS</button>
-    <button class="tablinks" onclick="openTab(event, 'HIDDEN_ACTIONS')">HIDDEN ACTIONS</button>
   </div>
 
   <div id="METRICS" class="tabcontent">
     <center><a onclick="softwareInfo()">SOFTWARE VERSION INFO</a></center>
     <hr>
     <center><code>Signal strength</code></center>
+    <br>
     <div id="signal_bar">
       <div class="bar_div">
         <div class="bar_item" id="nr5rsrpb"></div>
@@ -590,6 +570,7 @@ function menuHtmlBody() {
     <div class="row">
       <div class="column metrics">
         <center><code>WAN</code></center>
+        <br>
         <ul>
           <li>External IP: <span id="wan_ipaddr"></span></li>
           <li>DNS SERVERS: <span id="dns_mode"></span></li>
@@ -598,6 +579,7 @@ function menuHtmlBody() {
 
       <div class="column metrics">
         <center><code>4g/5g Metrics</code></center>
+        <br>
         <ul>
           <li>RSRP:<span id="lte_rsrp"></span>dBm</li>
           <li>RSRQ:<span id="lte_rsrq"></span>dB</li>
@@ -612,6 +594,7 @@ function menuHtmlBody() {
 
       <div class="column metrics">
         <center><code>Bands and extra info</code></center>
+        <br>
         <ul>
           <li>MAIN:<span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth"></span></li>
           <li id="ca">CA:<span id="lte_multi_ca_scell_info"></span></li>
@@ -623,6 +606,7 @@ function menuHtmlBody() {
 
       <div class="column metrics">
         <center><code>Temperature Metrics</code></center>
+        <br>
         <ul>
           <li>4G:<span id="pm_sensor_mdm"></span>°</li>
           <br>
@@ -640,8 +624,9 @@ function menuHtmlBody() {
       <ul>
           <li><a href="#station_info" onclick="scrowDown()">Station Info</a></li>
           <li><a href="#router_setting" onclick="scrowDown()">Router Setting</a></li>
+          <li><a onclick="setDNS()">SET CUSTOM DNS</a></li>
           <li>
-            <a href="#firewall">Firewall</a>
+            <a href="#firewall" onclick="scrowDown()">Firewall</a>
             <ul>
                 <li><a href="#port_filter" onclick="scrowDown()">Port Filter</a></li>
                 <li><a href="#port_forward" onclick="scrowDown()">Port Forward</a></li>
@@ -671,6 +656,9 @@ function menuHtmlBody() {
           <li><a href="#dial_setting" onclick="scrowDown()">Dial Setting</a></li>
           <li><a href="#net_select" onclick="scrowDown()">Net Select</a></li>
           <li><a href="#apn_setting" onclick="scrowDown()">APN Setting</a></li>
+          <li><a onclick="lteBandSelection()">SET 4G</a></li>
+          <li><a onclick="nrBandSelection()">SET 5G</a></li>
+          <li> <a onclick="cellLock()">CELL LOCK</a></li>
       </ul>
     </div>
 
@@ -678,6 +666,7 @@ function menuHtmlBody() {
       <h4>Router Management</h4>
       <ul>
           <li><a href="#restart" onclick="scrowDown()">Restart</a></li>
+          <li> <a onclick="reboot()">REBOOT</a> </li>
           <li><a href="#restore" onclick="scrowDown()">Restore</a></li>
           <li><a href="#password_management" onclick="scrowDown()">Password Management</a></li>
           <li><a href="#ota_update" onclick="scrowDown()">OTA Update</a></li>
@@ -689,7 +678,7 @@ function menuHtmlBody() {
           <li><a href="#bsp_tc_settings" onclick="scrowDown()">BSP TC Settings</a></li>
           <li><a href="#system_security" onclick="scrowDown()">System Security</a></li>
           <li>
-              <a href="#others">Others</a>
+              <a href="#others" onclick="scrowDown()">Others</a>
               <ul>
                   <li><a href="#pin_management" onclick="scrowDown()">PIN Management</a></li>
                   <li><a href="#SNTP" onclick="scrowDown()">SNTP</a></li>
@@ -711,18 +700,6 @@ function menuHtmlBody() {
       </ul>
     </div>
   </div>
-
-  <div id="HIDDEN_ACTIONS" class="tabcontent menu_item">
-    <hr>
-    <ul>
-      <li><a class="hidden_action_button" onclick="lteBandSelection()">SET 4G</a></li>
-      <li><a class="hidden_action_button" onclick="nrBandSelection()">SET 5G</a></li>
-      <li><a class="hidden_action_button" onclick="setDNS()">SET CUSTOM DNS</a></li>
-      <li> <a class="hidden_action_button" onclick="cellLock()">CELL LOCK</a></li>
-      <li> <a class="hidden_action_button" onclick="reboot()">REBOOT</a> </li>
-    </ul>
-    <hr>
-  </div>
   <div>
   <br><hr>`
 }
@@ -734,7 +711,7 @@ function ftb() {
 }
 
 signal = "";
-version = "V2.1.1";
+version = "V2.2.0";
 
 $("#txtUserName").attr("maxlength", "100");
 console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");
