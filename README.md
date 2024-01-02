@@ -103,16 +103,15 @@ uglifyjs hack.js -o obfuscated_hack.js -c -m
 ## ROADMAP/TODO
 
 - V2
-  - Improve Front-end(move html/css code to separated files);
-  - Improve menu by adding alt text and correct titles;
   - Fix CELL tower position broken link;
 
 - V3
+  - compile extension for brave/chrome;
   - Get DHCP IP list somehow;
   - Create automated script to deploy openwrt compatible router using USB Ethernet in a raspberry pi(3B+ at least);
-  - compile extension for brave/chrome;
 
 - V4
+  - Improve Front-end(move html/css code to separated files);
   - Create obfuscated version working with favorites approach;
   - Create forms for the hidden actions so it becomes a regular menu item
   - Custom firmware with new code;

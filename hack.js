@@ -273,11 +273,15 @@ function nrBandSelection() {
   }
 }
 
+function readCurrentDNS() {
+  return new DOMParser().parseFromString(dns_mode, 'text/html').body.textContent;
+}
+
 function setDNS() {
   var userInput,
     userPrompt = (userPrompt = prompt(
       "Please input 2 DNS servers, separated by \",\" (example 1.1.1.1,1.0.0.1). If you want to use PROVIDER settings, write 'AUTO'.",
-      "AUTO"
+      readCurrentDNS()
     )) && userPrompt.toLowerCase();
 
   if (null != userPrompt && "" !== userPrompt) {
@@ -483,18 +487,8 @@ function menuHtmlBody() {
   .column {
     float: left;
     word-wrap: break-word;
-    border-left:1px solid #000;
-  }
-
-  .metrics {
     width: 25%;
-    height: 100%;
     border-left:1px solid #000;
-    height:40vh;
-  }
-
-  .menus {
-    width: 20%;
   }
 
   .row:after {
@@ -540,7 +534,7 @@ function menuHtmlBody() {
   <h2>
     <center>
       <a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
-        ZTE-MU5001-HACK V2.2.0
+        ZTE-MU5001-HACK V2.3.0
       </a>
     </center>
   </h2>
@@ -568,7 +562,7 @@ function menuHtmlBody() {
     <hr>
 
     <div class="row">
-      <div class="column metrics">
+      <div class="column">
         <center><code>WAN</code></center>
         <br>
         <ul>
@@ -577,7 +571,7 @@ function menuHtmlBody() {
         </ul>
       </div>
 
-      <div class="column metrics">
+      <div class="column">
         <center><code>4g/5g Metrics</code></center>
         <br>
         <ul>
@@ -592,7 +586,7 @@ function menuHtmlBody() {
         </ul>
       </div>
 
-      <div class="column metrics">
+      <div class="column">
         <center><code>Bands and extra info</code></center>
         <br>
         <ul>
@@ -600,11 +594,11 @@ function menuHtmlBody() {
           <li id="ca">CA:<span id="lte_multi_ca_scell_info"></span></li>
           <li>CELL LOCK MODE: <span id="earfcn_lock"></span></li>
           <li> <a onclick="extraBandsInfo()">EXTRA BANDS INFO</a> </li>
-          <li><a href="#network_info" onclick="scrowDown()">View Full Network Information</a></li>
+          <li><a href="#network_info" onclick="scrowDown()">View Full Network status</a></li>
         </ul>
       </div>
 
-      <div class="column metrics">
+      <div class="column">
         <center><code>Temperature Metrics</code></center>
         <br>
         <ul>
@@ -619,11 +613,15 @@ function menuHtmlBody() {
   </div>
 
   <div id="HIDDEN_MENUS" class="tabcontent hidden_menu_items row">
-    <div class="column menus">
+    <div class="column">
       <h4>General Network Settings</h4>
       <ul>
-          <li><a href="#station_info" onclick="scrowDown()">Station Info</a></li>
-          <li><a href="#router_setting" onclick="scrowDown()">Router Setting</a></li>
+          <li><a href="#station_info" onclick="scrowDown()">Connected Devices</a></li>
+          <li><a href="#router_setting" onclick="scrowDown()">DHCP/MTU</a>
+          <ul>
+            <li><a href="#bind_addr_lan" onclick="scrowDown()">MAC-IP Bind</a></li>
+          </ul>
+          </li>
           <li><a onclick="setDNS()">SET CUSTOM DNS</a></li>
           <li>
             <a href="#firewall" onclick="scrowDown()">Firewall</a>
@@ -634,69 +632,70 @@ function menuHtmlBody() {
                 <li><a href="#upnp" onclick="scrowDown()">UPnP</a></li>
                 <li><a href="#dmz" onclick="scrowDown()">DMZ</a></li>
                 <li><a href="#vpn_client" onclick="scrowDown()">VPN client</a></li>
+                <li><a href="#system_security" onclick="scrowDown()">WAN Access</a></li>
             </ul>
           </li>
       </ul>
     </div>
 
-    <div class="column menus">
+    <div class="column">
       <h4>Wi-Fi Settings</h4>
       <ul>
           <li><a href="#wifi_main" onclick="scrowDown()">Wi-Fi Main</a></li>
           <li><a href="#wifi_guest" onclick="scrowDown()">Wi-Fi Guest</a></li>
           <li><a href="#wps" onclick="scrowDown()">WPS</a></li>
-          <li><a href="#wifi_advance" onclick="scrowDown()">Wi-Fi Advance</a></li>
+          <li><a href="#wifi_advance" onclick="scrowDown()">Wi-Fi Advanced settings</a></li>
       </ul>
     </div>
 
-    <div class="column menus">
+    <div class="column">
       <h4>Mobile Networks</h4>
       <ul>
-          <li><a href="#internet_setting" onclick="scrowDown()">Internet Setting</a></li>
-          <li><a href="#dial_setting" onclick="scrowDown()">Dial Setting</a></li>
-          <li><a href="#net_select" onclick="scrowDown()">Net Select</a></li>
-          <li><a href="#apn_setting" onclick="scrowDown()">APN Setting</a></li>
-          <li><a onclick="lteBandSelection()">SET 4G</a></li>
-          <li><a onclick="nrBandSelection()">SET 5G</a></li>
-          <li> <a onclick="cellLock()">CELL LOCK</a></li>
+        <li><a href="#internet_setting" onclick="scrowDown()">Connection Settings</a>
+          <ul>
+            <li><a href="#dial_setting" onclick="scrowDown()">Connection Mode</a></li>
+            <li><a href="#net_select" onclick="scrowDown()">Network Selection</a></li>
+            <li><a href="#apn_setting" onclick="scrowDown()">APN Settings</a></li>
+          </ul>
+        </li>
+        <li><a onclick="lteBandSelection()">SET 4G</a></li>
+        <li><a onclick="nrBandSelection()">SET 5G</a></li>
+        <li> <a onclick="cellLock()">CELL LOCK</a></li>
+      </ul>
+      <hr>
+      <h4>SIM Card Settings</h4>
+      <ul>
+          <li><a href="#traffic_alert" onclick="scrowDown()">Data Management</a></li>
+          <li><a href="#sms" onclick="scrowDown()">SMS</a></li>
+          <li><a href="#phonebook" onclick="scrowDown()">Phonebook</a></li>
       </ul>
     </div>
 
-    <div class="column menus">
+    <div class="column">
       <h4>Router Management</h4>
       <ul>
-          <li><a href="#restart" onclick="scrowDown()">Restart</a></li>
-          <li> <a onclick="reboot()">REBOOT</a> </li>
+          <li> <a onclick="reboot()">FAST REBOOT</a> </li>
+          <li><a href="#restart" onclick="scrowDown()">Reboot</a></li>
           <li><a href="#restore" onclick="scrowDown()">Restore</a></li>
           <li><a href="#password_management" onclick="scrowDown()">Password Management</a></li>
           <li><a href="#ota_update" onclick="scrowDown()">OTA Update</a></li>
-          <li><a href="#sleep_mode" onclick="scrowDown()">Sleep Mode</a></li>
-          <li><a href="#debug_page" onclick="scrowDown()">Debug Page</a></li>
           <li><a href="#fastboot" onclick="scrowDown()">FastBoot</a></li>
+          <li><a href="#sleep_mode" onclick="scrowDown()">Sleep Mode</a></li>
           <li><a href="#pcie_powersave" onclick="scrowDown()">PCIe Powersave</a></li>
-          <li><a href="#mec_setting" onclick="scrowDown()">MEC Setting</a></li>
-          <li><a href="#bsp_tc_settings" onclick="scrowDown()">BSP TC Settings</a></li>
-          <li><a href="#system_security" onclick="scrowDown()">System Security</a></li>
+          <li><a href="#bsp_tc_settings" onclick="scrowDown()">Temperature Control</a></li>
+          <li><a href="#mec_setting" onclick="scrowDown()">MEC coordination</a></li>
+          <li><a href="#debug_page" onclick="scrowDown()">Debug Page</a></li>
           <li>
               <a href="#others" onclick="scrowDown()">Others</a>
               <ul>
+                  <li><a href="#diagnosis" onclick="scrowDown()">Diagnosis</a></li>
+                  <li><a href="#network_info" onclick="scrowDown()">Network status</a></li>
                   <li><a href="#pin_management" onclick="scrowDown()">PIN Management</a></li>
                   <li><a href="#SNTP" onclick="scrowDown()">SNTP</a></li>
-                  <li><a href="#network_info" onclick="scrowDown()">Network Info</a></li>
-                  <li><a href="#diagnosis" onclick="scrowDown()">Diagnosis</a></li>
-                  <li><a href="#restart_schedule" onclick="scrowDown()">Restart Schedule</a></li>
-                  <li><a href="#watch_dog_setting" onclick="scrowDown()">Watchdog Setting</a></li>
+                  <li><a href="#restart_schedule" onclick="scrowDown()">Reboot Scheduling</a></li>
+                  <li><a href="#watch_dog_setting" onclick="scrowDown()">Watch Dog Settings</a></li>
               </ul>
           </li>
-      </ul>
-    </div>
-
-    <div class="column menus">
-      <h4>SIM Card Settings</h4>
-      <ul>
-          <li><a href="#traffic_alert" onclick="scrowDown()">Traffic Alert</a></li>
-          <li><a href="#sms" onclick="scrowDown()">SMS</a></li>
-          <li><a href="#phonebook" onclick="scrowDown()">Phonebook</a></li>
       </ul>
     </div>
   </div>
@@ -711,7 +710,7 @@ function ftb() {
 }
 
 signal = "";
-version = "V2.2.0";
+version = "V2.3.0";
 
 $("#txtUserName").attr("maxlength", "100");
 console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");
