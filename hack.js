@@ -452,222 +452,272 @@ function scrowDown() {
 }
 
 function menuHtmlBody() {
-  return `
-    <style>
-      /* MENU ITEMS */
-      #hack_menu {
-        margin-right: 12vw !important;
-        margin-left: 12vw !important;
-      }
-      .menu_item {
-        clear: both;
-        width: 100%;
-        float: left;
-        border: 1px solid #bbb;
-        border-radius: 5px;
-        padding: 10px;
-        line-height: 2em;
-        margin: 5px;
-      }
-      li span {
-        margin-left: 5px;
-      }
-      #lte_ca_pcell_bandwidth {
-        margin-left: 0;
-      }
-      #lte_rsrq,
-      #lte_rsrp,
-      #lte_rssi,
-      #enbid,
-      #lte_snr,
-      #Z5g_SINR,
-      #cell_id,
-      #lte_ca_pcell_band,
-      #pm_sensor_mdm,
-      #pm_modem_5g,
-      #earfcn_lock,
-      #wan_ipaddr {
-        color: #b00;
-        font-weight: strong;
-      }
-      .menu_item ul {
-        margin: 0;
-        padding: 0;
-      }
-      .menu_item ul li {
-        display: inline;
-        margin-right: 5px;
-        margin-left: 5px;
-      }
-      #network_type {
-        margin-right: 0 !important;
-      }
-      #enbid {
-        font-weight: bold;
-        text-decoration: underline;
-      }
-      .bar_div {
-        border-bottom: 1px solid #ccc;
-        width: auto;
-        height: 20px;
-      }
-      .bar_item {
-        height: 100%25;
-        border-right: 1px solid #ccc;
-        padding-left: 20px;
-      }
+  return `<style>
+  /* MENU ITEMS */
+  #hack_menu {
+    margin-right: 12vw !important;
+    margin-left: 12vw !important;
+  }
+  #lte_rsrq,
+  #lte_rsrp,
+  #lte_rssi,
+  #enbid,
+  #lte_snr,
+  #Z5g_SINR,
+  #cell_id,
+  #lte_ca_pcell_band,
+  #pm_sensor_mdm,
+  #pm_modem_5g,
+  #earfcn_lock,
+  #wan_ipaddr {
+  color: #b00;
+  font-weight: strong;
+  }
 
-      /* BUTTONS */
-      .base_button {
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        padding: 10px;
-        border-radius: 10px;
-        color: white;
-        font-weight: bolder;
-        margin-right: 5px;
-        margin-left: 5px;
-      }
-      .base_button:hover {
-        color: white;
-      }
-      .hidden_menu_button {
-        background-color: green;
-      }
-      .hidden_action_button {
-        background-color: purple;
-      }
+  .menu_item ul li {
+  display: inline;
+  margin-right: 5px;
+  margin-left: 5px;
+  }
 
-      /* TAB */
-      .tab {
-        overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-      }
-      .tab button {
-        background-color: inherit;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        transition: 0.3s;
-        font-size: 17px;
-      }
-      .tab button:hover {
-        background-color: #ddd;
-      }
-      .tab button.active {
-        background-color: #ccc;
-      }
-      .tabcontent {
-        display: none;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-top: none;
-      }
-    </style>
-    <div id="hack_menu">
-    <h2>
-      <center>
-        <a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
-          ZTE-MU5001-HACK V2
-        </a>
-      </center>
-    </h2>
-    <div class="tab">
-      <button class="tablinks" onclick="openTab(event, 'METRICS')">METRICS</button>
-      <button class="tablinks" onclick="openTab(event, 'HIDDEN_MENUS')">HIDDEN MENUS</button>
-      <button class="tablinks" onclick="openTab(event, 'HIDDEN_ACTIONS')">HIDDEN ACTIONS</button>
-    </div>
+  .column {
+    float: left;
+    width: 20%;
+    word-wrap: break-word;
+  }
 
-    <div id="METRICS" class="tabcontent">
-      <hr>
-      <center><a onclick="softwareInfo()">SOFTWARE VERSION INFO</a></center>
-      <hr>
-      <center><code>Signal strength</code></center>
-      <div id="signal_bar">
-        <div class="bar_div">
-          <div class="bar_item" id="nr5rsrpb"></div>
-        </div>
-        <div class="bar_div">
-          <div class="bar_item" id="rsrpb"></div>
-        </div>
-        <div class="bar_div">
-          <div class="bar_item" id="rsrqb"></div>
-        </div>
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* BUTTONS */
+
+  .hidden_action_button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bolder;
+  margin-right: 5px;
+  margin-left: 5px;
+  background-color: purple;
+  }
+  .hidden_action_button:hover {
+  color: white;
+  }
+
+  /* TAB */
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+
+  .tab button:hover {
+    background-color: #ddd;
+  }
+
+  .tab button.active {
+    background-color: #ccc;
+  }
+
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+  </style>
+  <div id="hack_menu">
+  <h2>
+    <center>
+      <a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
+        ZTE-MU5001-HACK V2.1.0
+      </a>
+    </center>
+  </h2>
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'METRICS')">METRICS</button>
+    <button class="tablinks" onclick="openTab(event, 'HIDDEN_MENUS')">MENUS</button>
+    <button class="tablinks" onclick="openTab(event, 'HIDDEN_ACTIONS')">HIDDEN ACTIONS</button>
+  </div>
+
+  <div id="METRICS" class="tabcontent">
+    <center><a onclick="softwareInfo()">SOFTWARE VERSION INFO</a></center>
+    <hr>
+    <center><code>Signal strength</code></center>
+    <div id="signal_bar">
+      <div class="bar_div">
+        <div class="bar_item" id="nr5rsrpb"></div>
       </div>
-      <hr>
-      <center><code>WAN</code></center>
+      <div class="bar_div">
+        <div class="bar_item" id="rsrpb"></div>
+      </div>
+      <div class="bar_div">
+        <div class="bar_item" id="rsrqb"></div>
+      </div>
+    </div>
+    <hr>
+
+    <div class="row">
+      <div class="column">
+        <center><code>WAN</code></center>
+        <ul>
+          <li>External IP: <span id="wan_ipaddr"></span></li>
+          <li>DNS SERVERS: <span id="dns_mode"></span></li>
+        </ul>
+      </div>
+
+      <div class="column">
+        <center><code>4g/5g Metrics</code></center>
+        <ul>
+          <li>RSRP:<span id="lte_rsrp"></span>dBm</li>
+          <li>RSRQ:<span id="lte_rsrq"></span>dB</li>
+          <li>RSSI:<span id="lte_rssi"></span>dBm</li>
+          <li>SINR:<span id="lte_snr"></span>dB</li>
+          <li>5SINR:<span id="Z5g_SINR"></span>dB</li>
+          <li>NETWORK TYPE: <span id="network_type">NETWORK TYPE</span></li>
+          <li>ENB ID:<a id="lteitaly" target="lteitaly" href="#"><span id="enbid">#</span></a></li>
+          <li>CELL ID:<span id="cell_id">#</span></li>
+        </ul>
+      </div>
+
+      <div class="column">
+        <center><code>Bands and extra info</code></center>
+        <ul>
+          <li>MAIN:<span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth"></span></li>
+          <li id="ca">CA:<span id="lte_multi_ca_scell_info"></span></li>
+          <li>CELL LOCK MODE: <span id="earfcn_lock"></span></li>
+          <li> <a onclick="extraBandsInfo()">EXTRA BANDS INFO</a> </li>
+          <li><a href="#network_info" onclick="scrowDown()">View Full Network Information</a></li>
+        </ul>
+      </div>
+
+      <div class="column">
+        <center><code>Temperature Metrics</code></center>
+        <ul>
+          <li>4G:<span id="pm_sensor_mdm"></span>°</li>
+          <br>
+          <li>5G:<span id="pm_modem_5g"></span>°</li>
+          <br>
+          <li><a href="#temp_status" onclick="scrowDown()">View Full Temperature Metrics</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="HIDDEN_MENUS" class="tabcontent hidden_menu_items row">
+    <div class="column">
+      <h4>General Network Settings</h4>
       <ul>
-        <li>External IP: <span id="wan_ipaddr"></span></li>
-        <li>DNS SERVERS: <span id="dns_mode"></span></li>
+          <li><a href="#station_info" onclick="scrowDown()">Station Info</a></li>
+          <li><a href="#router_setting" onclick="scrowDown()">Router Setting</a></li>
+          <li>
+            <a href="#firewall">Firewall</a>
+            <ul>
+                <li><a href="#port_filter" onclick="scrowDown()">Port Filter</a></li>
+                <li><a href="#port_forward" onclick="scrowDown()">Port Forward</a></li>
+                <li><a href="#port_map" onclick="scrowDown()">Port Map</a></li>
+                <li><a href="#upnp" onclick="scrowDown()">UPnP</a></li>
+                <li><a href="#dmz" onclick="scrowDown()">DMZ</a></li>
+                <li><a href="#vpn_client" onclick="scrowDown()">VPN client</a></li>
+            </ul>
+          </li>
       </ul>
-      <hr>
-      <center><code>4g/5g Metrics</code></center>
-      <ul>
-        <li>RSRP:<span id="lte_rsrp"></span>dBm</li>
-        <li>RSRQ:<span id="lte_rsrq"></span>dB</li>
-        <li>RSSI:<span id="lte_rssi"></span>dBm</li>
-        <li>SINR:<span id="lte_snr"></span>dB</li>
-        <li>5SINR:<span id="Z5g_SINR"></span>dB</li>
-        <li>NETWORK TYPE: <span id="network_type">NETWORK TYPE</span></li>
-        <li>ENB ID:<a id="lteitaly" target="lteitaly" href="#"><span id="enbid">#</span></a></li>
-        <li>CELL ID:<span id="cell_id">#</span></li>
-        <br>
-        <li>MAIN:<span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth"></span></li>
-        <li id="ca">CA:<span id="lte_multi_ca_scell_info"></span></li>
-        <li>CELL LOCK MODE: <span id="earfcn_lock"></span></li>
-        <li> <a onclick="extraBandsInfo()">EXTRA BANDS INFO</a> </li>
-        <li><a href="#network_info" onclick="scrowDown()">View Full Network Information</a></li>
-      </ul>
-      <hr>
-      <center><code>Temperature Metrics</code></center>
-      <ul>
-        <li>4G:<span id="pm_sensor_mdm"></span>°</li>
-        <br>
-        <li>5G:<span id="pm_modem_5g"></span>°</li>
-        <br>
-        <li><a href="#temp_status" onclick="scrowDown()">View Full Temperature Metrics</a></li>
-      </ul>
-      </hr>
     </div>
 
-    <div id="HIDDEN_MENUS" class="tabcontent menu_item">
-      <hr>
+    <div class="column">
+      <h4>Wi-Fi Settings</h4>
       <ul>
-        <li><a href="#debug_page" class="hidden_menu_button base_button">Debug</a></li>
-        <li><a href="#fastboot" class="hidden_menu_button base_button">FastBoot</a></li>
-        <li><a href="#pcie_powersave" class="hidden_menu_button base_button">Power Save</a></li>
-        <li><a href="#vpn_client" class="hidden_menu_button base_button">VPN client</a></li>
-        <li><a href="#mec_setting" class="hidden_menu_button base_button">MEC Settings</a></li>
-        <li><a href="#bsp_tc_settings" class="hidden_menu_button base_button">Temperature Settings</a></li>
-        <li><a href="#wifi_main" class="hidden_menu_button base_button">WIFI</a></li>
+          <li><a href="#wifi_main" onclick="scrowDown()">Wi-Fi Main</a></li>
+          <li><a href="#wifi_guest" onclick="scrowDown()">Wi-Fi Guest</a></li>
+          <li><a href="#wps" onclick="scrowDown()">WPS</a></li>
+          <li><a href="#wifi_advance" onclick="scrowDown()">Wi-Fi Advance</a></li>
       </ul>
-      <hr>
     </div>
 
-    <div id="HIDDEN_ACTIONS" class="tabcontent menu_item">
-      <hr>
+    <div class="column">
+      <h4>Mobile Networks</h4>
       <ul>
-        <li><a class="hidden_action_button base_button" onclick="lteBandSelection()">SET 4G</a></li>
-        <li><a class="hidden_action_button base_button" onclick="nrBandSelection()">SET 5G</a></li>
-        <li><a class="hidden_action_button base_button" onclick="setDNS()">SET CUSTOM DNS</a></li>
-        <li> <a class="hidden_action_button base_button" onclick="cellLock()">CELL LOCK</a></li>
-        <li> <a class="hidden_action_button base_button" onclick="reboot()">REBOOT</a> </li>
+          <li><a href="#internet_setting" onclick="scrowDown()">Internet Setting</a></li>
+          <li><a href="#dial_setting" onclick="scrowDown()">Dial Setting</a></li>
+          <li><a href="#net_select" onclick="scrowDown()">Net Select</a></li>
+          <li><a href="#apn_setting" onclick="scrowDown()">APN Setting</a></li>
       </ul>
-      <hr>
     </div>
-    <div>
-    <br><hr>
-  `
+
+    <div class="column">
+      <h4>Router Management</h4>
+      <ul>
+          <li><a href="#restart" onclick="scrowDown()">Restart</a></li>
+          <li><a href="#restore" onclick="scrowDown()">Restore</a></li>
+          <li><a href="#password_management" onclick="scrowDown()">Password Management</a></li>
+          <li><a href="#ota_update" onclick="scrowDown()">OTA Update</a></li>
+          <li><a href="#sleep_mode" onclick="scrowDown()">Sleep Mode</a></li>
+          <li><a href="#debug_page" onclick="scrowDown()">Debug Page</a></li>
+          <li><a href="#fastboot" onclick="scrowDown()">FastBoot</a></li>
+          <li><a href="#pcie_powersave" onclick="scrowDown()">PCIe Powersave</a></li>
+          <li><a href="#mec_setting" onclick="scrowDown()">MEC Setting</a></li>
+          <li><a href="#bsp_tc_settings" onclick="scrowDown()">BSP TC Settings</a></li>
+          <li><a href="#system_security" onclick="scrowDown()">System Security</a></li>
+          <li>
+              <a href="#others">Others</a>
+              <ul>
+                  <li><a href="#pin_management" onclick="scrowDown()">PIN Management</a></li>
+                  <li><a href="#SNTP" onclick="scrowDown()">SNTP</a></li>
+                  <li><a href="#network_info" onclick="scrowDown()">Network Info</a></li>
+                  <li><a href="#diagnosis" onclick="scrowDown()">Diagnosis</a></li>
+                  <li><a href="#restart_schedule" onclick="scrowDown()">Restart Schedule</a></li>
+                  <li><a href="#watch_dog_setting" onclick="scrowDown()">Watchdog Setting</a></li>
+              </ul>
+          </li>
+      </ul>
+    </div>
+
+    <div class="column">
+      <h4>SIM Card Settings</h4>
+      <ul>
+          <li><a href="#traffic_alert" onclick="scrowDown()">Traffic Alert</a></li>
+          <li><a href="#sms" onclick="scrowDown()">SMS</a></li>
+          <li><a href="#phonebook" onclick="scrowDown()">Phonebook</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="HIDDEN_ACTIONS" class="tabcontent menu_item">
+    <hr>
+    <ul>
+      <li><a class="hidden_action_button" onclick="lteBandSelection()">SET 4G</a></li>
+      <li><a class="hidden_action_button" onclick="nrBandSelection()">SET 5G</a></li>
+      <li><a class="hidden_action_button" onclick="setDNS()">SET CUSTOM DNS</a></li>
+      <li> <a class="hidden_action_button" onclick="cellLock()">CELL LOCK</a></li>
+      <li> <a class="hidden_action_button" onclick="reboot()">REBOOT</a> </li>
+    </ul>
+    <hr>
+  </div>
+  <div>
+  <br><hr>`
 }
 
 function ftb() {
@@ -677,7 +727,7 @@ function ftb() {
 }
 
 signal = "";
-version = "V2";
+version = "V2.1.0";
 
 $("#txtUserName").attr("maxlength", "100");
 console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");

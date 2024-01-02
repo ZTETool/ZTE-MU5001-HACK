@@ -87,6 +87,8 @@ docker-compose up --build
 # xpi file should be available under web-ext-artifacts
 ```
 
+uglifyjs hack.js -o obfuscated_hack.js -c -m
+
 ## ORIGINAL CREDITS AND FURTHER RESOURCES
 
 - [ZTE-MU5001 OFFICIAL INSTALLATION GUIDE](https://oss.ztedevices.com/prod/cn/direct/hk/mu5001/MU5001%20User%20Guide%20-0115-1.pdf)
@@ -98,10 +100,18 @@ docker-compose up --build
 - [mifi-mu5001-lib firmware(reverse engineered)](https://github.com/DarkNikGr/mifi-mu5001-lib/)
 
 
-## TODO
+## ROADMAP/TODO
 
-- Create automated script to deploy openwrt compatible router using USB Ethernet in a raspberry pi(3B+ at least);
-- Improve Front-end(move html/css code to separated files);
-- Get DHCP IP list somehow;
-- Add all possible menus to the main menu to facilitate the navigation.
-- Fix CELL tower position broken link;
+- V2
+  - Improve Front-end(move html/css code to separated files);
+  - Improve menu by adding alt text and correct titles;
+  - Fix CELL tower position broken link;
+
+- V3
+  - Get DHCP IP list somehow;
+  - Create automated script to deploy openwrt compatible router using USB Ethernet in a raspberry pi(3B+ at least);
+  - compile extension for brave/chrome;
+
+- V4
+  - Create obfuscated version working with favorites approach;
+  - Custom firmware with new code;
