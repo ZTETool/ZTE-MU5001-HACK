@@ -14,14 +14,10 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 
 ## FEATURES
 
-#### Old V1 screenshot
-![V1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/38f1e026-44fd-47ce-b73e-691672588918)
-
 #### New V2 screenshots
-![V2.pt1](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK/assets/38408536/2ba7470e-36bf-4abf-bf2d-390def86d689)
-![V2.pt2](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK/assets/38408536/ddfb3c74-778d-4982-bdc0-6722e93c7577)
-![v2.pt3](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/5232b58b-d567-4688-bca4-9137299df70e)
-![V2.pt4](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK/assets/38408536/68dd2d43-1e42-4dcd-a28f-ebfdfffc7437)
+
+![v2.3.2-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/7896909f-537e-4cef-9548-c940f2e998e3)
+![v2.3.2-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ffbb882e-56d7-4877-90bd-be0f6dee19d4)
 
 ### LIVE METRICS
 
