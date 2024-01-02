@@ -456,224 +456,233 @@ function scrowDown() {
 }
 
 function menuHtmlBody() {
-  return `<style>
-  /* MENU ITEMS */
-  #hack_menu {
-    margin-right: 12vw !important;
-    margin-left: 12vw !important;
-  }
-  #lte_rsrq,
-  #lte_rsrp,
-  #lte_rssi,
-  #enbid,
-  #lte_snr,
-  #Z5g_SINR,
-  #cell_id,
-  #lte_ca_pcell_band,
-  #pm_sensor_mdm,
-  #pm_modem_5g,
-  #earfcn_lock,
-  #wan_ipaddr {
-  color: #b00;
-  font-weight: strong;
-  }
-
-  .menu_item ul li {
-  display: inline;
-  margin-right: 5px;
-  margin-left: 5px;
-  }
-
-  .column {
-    float: left;
-    word-wrap: break-word;
-    width: 25%;
-    border-left:1px solid #000;
-  }
-
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  /* TAB */
-  .tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-  }
-
-  .tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    font-size: 17px;
-  }
-
-  .tab button:hover {
-    background-color: #ddd;
-  }
-
-  .tab button.active {
-    background-color: #ccc;
-  }
-
-  .tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-  }
+  return `
+  <style>
+    #hack_menu {
+      margin-right: 12vw !important;
+      margin-left: 12vw !important;
+    }
+    #lte_rsrq,
+    #lte_rsrp,
+    #lte_rssi,
+    #enbid,
+    #lte_snr,
+    #Z5g_SINR,
+    #cell_id,
+    #lte_ca_pcell_band,
+    #pm_sensor_mdm,
+    #pm_modem_5g,
+    #earfcn_lock,
+    #wan_ipaddr {
+      color: #b00;
+      font-weight: 700;
+    }
+    .menu_item ul li {
+      display: inline;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+    .column {
+      float: left;
+      word-wrap: break-word;
+      width: 25%;
+      border-left:1px solid #000;
+    }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .centered {
+      text-align: center;
+    }
+    a {
+      cursor: pointer;
+    }
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+    }
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+    }
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    .tab button.active {
+      background-color: #ccc;
+    }
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-top: none;
+    }
   </style>
   <div id="hack_menu">
-  <h2>
-    <center>
-      <a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
-        ZTE-MU5001-HACK V2.3.0
-      </a>
-    </center>
-  </h2>
-  <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'METRICS')">METRICS</button>
-    <button class="tablinks" onclick="openTab(event, 'HIDDEN_MENUS')">MENUS</button>
-  </div>
-
-  <div id="METRICS" class="tabcontent">
-    <center><a onclick="softwareInfo()">SOFTWARE VERSION INFO</a></center>
-    <hr>
-    <center><code>Signal strength</code></center>
-    <br>
-    <div id="signal_bar">
-      <div class="bar_div">
-        <div class="bar_item" id="nr5rsrpb"></div>
-      </div>
-      <div class="bar_div">
-        <div class="bar_item" id="rsrpb"></div>
-      </div>
-      <div class="bar_div">
-        <div class="bar_item" id="rsrqb"></div>
-      </div>
+    <div class="centered">
+      <h2><a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
+        ZTE-MU5001-HACK V2.3.2
+        </a>
+      </h2>
     </div>
-    <hr>
-
-    <div class="row">
-      <div class="column">
-        <center><code>WAN</code></center>
-        <br>
-        <ul>
-          <li>External IP: <span id="wan_ipaddr"></span></li>
-          <li>DNS SERVERS: <span id="dns_mode"></span></li>
-        </ul>
-      </div>
-
-      <div class="column">
-        <center><code>4g/5g Metrics</code></center>
-        <br>
-        <ul>
-          <li>RSRP:<span id="lte_rsrp"></span>dBm</li>
-          <li>RSRQ:<span id="lte_rsrq"></span>dB</li>
-          <li>RSSI:<span id="lte_rssi"></span>dBm</li>
-          <li>SINR:<span id="lte_snr"></span>dB</li>
-          <li>5SINR:<span id="Z5g_SINR"></span>dB</li>
-          <li>NETWORK TYPE: <span id="network_type">NETWORK TYPE</span></li>
-          <li>ENB ID:<a id="lteitaly" target="lteitaly" href="#"><span id="enbid">#</span></a></li>
-          <li>CELL ID:<span id="cell_id">#</span></li>
-        </ul>
-      </div>
-
-      <div class="column">
-        <center><code>Bands and extra info</code></center>
-        <br>
-        <ul>
-          <li>MAIN:<span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth"></span></li>
-          <li id="ca">CA:<span id="lte_multi_ca_scell_info"></span></li>
-          <li>CELL LOCK MODE: <span id="earfcn_lock"></span></li>
-          <li> <a onclick="extraBandsInfo()">EXTRA BANDS INFO</a> </li>
-          <li><a href="#network_info" onclick="scrowDown()">View Full Network status</a></li>
-        </ul>
-      </div>
-
-      <div class="column">
-        <center><code>Temperature Metrics</code></center>
-        <br>
-        <ul>
-          <li>4G:<span id="pm_sensor_mdm"></span>°</li>
-          <br>
-          <li>5G:<span id="pm_modem_5g"></span>°</li>
-          <br>
-          <li><a href="#temp_status" onclick="scrowDown()">View Full Temperature Metrics</a></li>
-        </ul>
-      </div>
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'METRICS')">METRICS</button>
+      <button class="tablinks" onclick="openTab(event, 'HIDDEN_MENUS')">MENUS</button>
     </div>
-  </div>
-
-  <div id="HIDDEN_MENUS" class="tabcontent hidden_menu_items row">
-    <div class="column">
-      <h4>General Network Settings</h4>
-      <ul>
-          <li><a href="#station_info" onclick="scrowDown()">Connected Devices</a></li>
-          <li><a href="#router_setting" onclick="scrowDown()">DHCP/MTU</a>
+    <div id="METRICS" class="tabcontent">
+      <div class="centered">
+        <a onclick="softwareInfo()">SOFTWARE VERSION INFO</a>
+      </div>
+      <hr>
+      <div class="centered">
+        <code>Signal strength</code>
+      </div>
+      <br>
+      <div id="signal_bar">
+        <div class="bar_div">
+          <div class="bar_item" id="nr5rsrpb"></div>
+        </div>
+        <div class="bar_div">
+          <div class="bar_item" id="rsrpb"></div>
+        </div>
+        <div class="bar_div">
+          <div class="bar_item" id="rsrqb"></div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="column">
+          <div class="centered">
+            <code>WAN</code>
+          </div>
+          <br>
           <ul>
-            <li><a href="#bind_addr_lan" onclick="scrowDown()">MAC-IP Bind</a></li>
+            <li>External IP: <span id="wan_ipaddr"></span></li>
+            <li>DNS SERVERS: <span id="dns_mode"></span></li>
           </ul>
+        </div>
+        <div class="column">
+          <div class="centered">
+            <code>4g/5g Metrics</code>
+          </div>
+          <br>
+          <ul>
+            <li>RSRP: <span id="lte_rsrp"></span>dBm</li>
+            <li>RSRQ: <span id="lte_rsrq"></span>dB</li>
+            <li>RSSI: <span id="lte_rssi"></span>dBm</li>
+            <li>SINR: <span id="lte_snr"></span>dB</li>
+            <li>5SINR: <span id="Z5g_SINR"></span>dB</li>
+            <li>NETWORK TYPE: <span id="network_type">NETWORK TYPE</span></li>
+            <li>ENB ID: <a id="lteitaly" target="lteitaly" href="#"><span id="enbid">#</span></a></li>
+            <li>CELL ID: <span id="cell_id">#</span></li>
+          </ul>
+        </div>
+        <div class="column">
+          <div class="centered">
+            <code>Bands and extra info</code>
+          </div>
+          <br>
+          <ul>
+            <li>MAIN: <span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth"></span></li>
+            <li id="ca">CA: <span id="lte_multi_ca_scell_info"></span></li>
+            <li>CELL LOCK MODE: <span id="earfcn_lock"></span></li>
+            <li> <a onclick="extraBandsInfo()">EXTRA BANDS INFO</a> </li>
+            <li><a href="#network_info" onclick="scrowDown()">View Full Network status</a></li>
+          </ul>
+        </div>
+        <div class="column">
+          <div class="centered">
+            <code>Temperature Metrics</code>
+          </div>
+          <br>
+          <ul>
+            <li>4G: <span id="pm_sensor_mdm"></span>°</li>
+            <li>5G: <span id="pm_modem_5g"></span>°</li>
+            <li><a href="#temp_status" onclick="scrowDown()">View Full Temperature Metrics</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="HIDDEN_MENUS" class="tabcontent hidden_menu_items row">
+      <div class="column">
+        <div class="centered">
+          <h4>General Network Settings</h4>
+        </div>
+        <ul>
+          <li><a href="#station_info" onclick="scrowDown()">Connected Devices</a></li>
+          <li>
+            <a href="#router_setting" onclick="scrowDown()">DHCP/MTU</a>
+            <ul>
+              <li><a href="#bind_addr_lan" onclick="scrowDown()">MAC-IP Bind</a></li>
+            </ul>
           </li>
           <li><a onclick="setDNS()">SET CUSTOM DNS</a></li>
           <li>
             <a href="#firewall" onclick="scrowDown()">Firewall</a>
             <ul>
-                <li><a href="#port_filter" onclick="scrowDown()">Port Filter</a></li>
-                <li><a href="#port_forward" onclick="scrowDown()">Port Forward</a></li>
-                <li><a href="#port_map" onclick="scrowDown()">Port Map</a></li>
-                <li><a href="#upnp" onclick="scrowDown()">UPnP</a></li>
-                <li><a href="#dmz" onclick="scrowDown()">DMZ</a></li>
-                <li><a href="#vpn_client" onclick="scrowDown()">VPN client</a></li>
-                <li><a href="#system_security" onclick="scrowDown()">WAN Access</a></li>
+              <li><a href="#port_filter" onclick="scrowDown()">Port Filter</a></li>
+              <li><a href="#port_forward" onclick="scrowDown()">Port Forward</a></li>
+              <li><a href="#port_map" onclick="scrowDown()">Port Map</a></li>
+              <li><a href="#upnp" onclick="scrowDown()">UPnP</a></li>
+              <li><a href="#dmz" onclick="scrowDown()">DMZ</a></li>
+              <li><a href="#vpn_client" onclick="scrowDown()">VPN client</a></li>
+              <li><a href="#system_security" onclick="scrowDown()">WAN Access</a></li>
             </ul>
           </li>
-      </ul>
-    </div>
-
-    <div class="column">
-      <h4>Wi-Fi Settings</h4>
-      <ul>
+        </ul>
+      </div>
+      <div class="column">
+        <div class="centered">
+          <h4>Wi-Fi Settings</h4>
+        </div>
+        <ul>
           <li><a href="#wifi_main" onclick="scrowDown()">Wi-Fi Main</a></li>
           <li><a href="#wifi_guest" onclick="scrowDown()">Wi-Fi Guest</a></li>
           <li><a href="#wps" onclick="scrowDown()">WPS</a></li>
           <li><a href="#wifi_advance" onclick="scrowDown()">Wi-Fi Advanced settings</a></li>
-      </ul>
-    </div>
-
-    <div class="column">
-      <h4>Mobile Networks</h4>
-      <ul>
-        <li><a href="#internet_setting" onclick="scrowDown()">Connection Settings</a>
-          <ul>
-            <li><a href="#dial_setting" onclick="scrowDown()">Connection Mode</a></li>
-            <li><a href="#net_select" onclick="scrowDown()">Network Selection</a></li>
-            <li><a href="#apn_setting" onclick="scrowDown()">APN Settings</a></li>
-          </ul>
-        </li>
-        <li><a onclick="lteBandSelection()">SET 4G</a></li>
-        <li><a onclick="nrBandSelection()">SET 5G</a></li>
-        <li> <a onclick="cellLock()">CELL LOCK</a></li>
-      </ul>
-      <hr>
-      <h4>SIM Card Settings</h4>
-      <ul>
+        </ul>
+      </div>
+      <div class="column">
+        <div class="centered">
+          <h4>Mobile Networks</h4>
+        </div>
+        <ul>
+          <li>
+            <a href="#internet_setting" onclick="scrowDown()">Connection Settings</a>
+            <ul>
+              <li><a href="#dial_setting" onclick="scrowDown()">Connection Mode</a></li>
+              <li><a href="#net_select" onclick="scrowDown()">Network Selection</a></li>
+              <li><a href="#apn_setting" onclick="scrowDown()">APN Settings</a></li>
+            </ul>
+          </li>
+          <li><a onclick="lteBandSelection()">SET 4G</a></li>
+          <li><a onclick="nrBandSelection()">SET 5G</a></li>
+          <li> <a onclick="cellLock()">CELL LOCK</a></li>
+        </ul>
+        <hr>
+        <div class="centered">
+          <h4>SIM Card Settings</h4>
+        </div>
+        <ul>
           <li><a href="#traffic_alert" onclick="scrowDown()">Data Management</a></li>
           <li><a href="#sms" onclick="scrowDown()">SMS</a></li>
           <li><a href="#phonebook" onclick="scrowDown()">Phonebook</a></li>
-      </ul>
-    </div>
-
-    <div class="column">
-      <h4>Router Management</h4>
-      <ul>
+        </ul>
+      </div>
+      <div class="column">
+        <div class="centered">
+          <h4>Router Management</h4>
+        </div>
+        <ul>
           <li> <a onclick="reboot()">FAST REBOOT</a> </li>
           <li><a href="#restart" onclick="scrowDown()">Reboot</a></li>
           <li><a href="#restore" onclick="scrowDown()">Restore</a></li>
@@ -686,21 +695,23 @@ function menuHtmlBody() {
           <li><a href="#mec_setting" onclick="scrowDown()">MEC coordination</a></li>
           <li><a href="#debug_page" onclick="scrowDown()">Debug Page</a></li>
           <li>
-              <a href="#others" onclick="scrowDown()">Others</a>
-              <ul>
-                  <li><a href="#diagnosis" onclick="scrowDown()">Diagnosis</a></li>
-                  <li><a href="#network_info" onclick="scrowDown()">Network status</a></li>
-                  <li><a href="#pin_management" onclick="scrowDown()">PIN Management</a></li>
-                  <li><a href="#SNTP" onclick="scrowDown()">SNTP</a></li>
-                  <li><a href="#restart_schedule" onclick="scrowDown()">Reboot Scheduling</a></li>
-                  <li><a href="#watch_dog_setting" onclick="scrowDown()">Watch Dog Settings</a></li>
-              </ul>
+            <a href="#others" onclick="scrowDown()">Others</a>
+            <ul>
+              <li><a href="#diagnosis" onclick="scrowDown()">Diagnosis</a></li>
+              <li><a href="#network_info" onclick="scrowDown()">Network status</a></li>
+              <li><a href="#pin_management" onclick="scrowDown()">PIN Management</a></li>
+              <li><a href="#SNTP" onclick="scrowDown()">SNTP</a></li>
+              <li><a href="#restart_schedule" onclick="scrowDown()">Reboot Scheduling</a></li>
+              <li><a href="#watch_dog_setting" onclick="scrowDown()">Watch Dog Settings</a></li>
+            </ul>
           </li>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
-  <div>
-  <br><hr>`
+  <br>
+  <hr>
+`
 }
 
 function ftb() {
@@ -710,7 +721,7 @@ function ftb() {
 }
 
 signal = "";
-version = "V2.3.0";
+version = "V2.3.2";
 
 $("#txtUserName").attr("maxlength", "100");
 console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");
