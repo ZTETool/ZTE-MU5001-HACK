@@ -114,4 +114,5 @@ uglifyjs hack.js -o obfuscated_hack.js -c -m
 
 - V4
   - Create obfuscated version working with favorites approach;
+  - Create forms for the hidden actions so it becomes a regular menu item
   - Custom firmware with new code;

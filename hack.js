@@ -482,8 +482,15 @@ function menuHtmlBody() {
 
   .column {
     float: left;
-    width: 20%;
     word-wrap: break-word;
+  }
+
+  .metrics {
+    width: 25%;
+  }
+
+  .menus {
+    width: 20%;
   }
 
   .row:after {
@@ -553,7 +560,7 @@ function menuHtmlBody() {
   <h2>
     <center>
       <a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
-        ZTE-MU5001-HACK V2.1.0
+        ZTE-MU5001-HACK V2.1.1
       </a>
     </center>
   </h2>
@@ -581,7 +588,7 @@ function menuHtmlBody() {
     <hr>
 
     <div class="row">
-      <div class="column">
+      <div class="column metrics">
         <center><code>WAN</code></center>
         <ul>
           <li>External IP: <span id="wan_ipaddr"></span></li>
@@ -589,7 +596,7 @@ function menuHtmlBody() {
         </ul>
       </div>
 
-      <div class="column">
+      <div class="column metrics">
         <center><code>4g/5g Metrics</code></center>
         <ul>
           <li>RSRP:<span id="lte_rsrp"></span>dBm</li>
@@ -603,7 +610,7 @@ function menuHtmlBody() {
         </ul>
       </div>
 
-      <div class="column">
+      <div class="column metrics">
         <center><code>Bands and extra info</code></center>
         <ul>
           <li>MAIN:<span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth"></span></li>
@@ -614,7 +621,7 @@ function menuHtmlBody() {
         </ul>
       </div>
 
-      <div class="column">
+      <div class="column metrics">
         <center><code>Temperature Metrics</code></center>
         <ul>
           <li>4G:<span id="pm_sensor_mdm"></span>°</li>
@@ -628,7 +635,7 @@ function menuHtmlBody() {
   </div>
 
   <div id="HIDDEN_MENUS" class="tabcontent hidden_menu_items row">
-    <div class="column">
+    <div class="column menus">
       <h4>General Network Settings</h4>
       <ul>
           <li><a href="#station_info" onclick="scrowDown()">Station Info</a></li>
@@ -647,7 +654,7 @@ function menuHtmlBody() {
       </ul>
     </div>
 
-    <div class="column">
+    <div class="column menus">
       <h4>Wi-Fi Settings</h4>
       <ul>
           <li><a href="#wifi_main" onclick="scrowDown()">Wi-Fi Main</a></li>
@@ -657,7 +664,7 @@ function menuHtmlBody() {
       </ul>
     </div>
 
-    <div class="column">
+    <div class="column menus">
       <h4>Mobile Networks</h4>
       <ul>
           <li><a href="#internet_setting" onclick="scrowDown()">Internet Setting</a></li>
@@ -667,7 +674,7 @@ function menuHtmlBody() {
       </ul>
     </div>
 
-    <div class="column">
+    <div class="column menus">
       <h4>Router Management</h4>
       <ul>
           <li><a href="#restart" onclick="scrowDown()">Restart</a></li>
@@ -695,7 +702,7 @@ function menuHtmlBody() {
       </ul>
     </div>
 
-    <div class="column">
+    <div class="column menus">
       <h4>SIM Card Settings</h4>
       <ul>
           <li><a href="#traffic_alert" onclick="scrowDown()">Traffic Alert</a></li>
@@ -727,7 +734,7 @@ function ftb() {
 }
 
 signal = "";
-version = "V2.1.0";
+version = "V2.1.1";
 
 $("#txtUserName").attr("maxlength", "100");
 console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");
