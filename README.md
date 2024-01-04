@@ -16,10 +16,10 @@ If you wish to also install OpenWrt in a raspberry PI to use it as main router a
 
 ## FEATURES
 
-#### New V2.5.0 screenshots
+#### New V2.5.1 screenshots
 
-![v2.5.0-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/2980b13c-6477-4f7b-9a83-a7b5db418bd8)
-![v2.5.0-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ef058ab8-1a53-4680-9ffa-c1044e53103d)
+![v2.5.1-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/2980b13c-6477-4f7b-9a83-a7b5db418bd8)
+![v2.5.1-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ef058ab8-1a53-4680-9ffa-c1044e53103d)
 
 - Live metrics
 - All available menus of the router(hidden ones and the regular ones)
@@ -38,7 +38,7 @@ docker-compose down && docker-compose up --build
 
 ## ROADMAP / TODO
 
-[ZTE-MU5001-HACK Kanban](https://github.com/users/the-harry/projects/4)
+[ZTE-MU5001-HACK Kanban](https://github.com/users/the-harry/projects/4/views/2)
 
 Do you have any idea, suggestions or complaints? Or perhaps found a missing menu item or action? [Please open an issue here!](https://github.com/the-harry/ZTE-MU5001-HACK/issues)
 

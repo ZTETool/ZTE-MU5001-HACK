@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ZTE-MU5001-HACK",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Enables hidden menus and metrics for the ZTE-MU5001 router.",
   "permissions": ["activeTab", "storage"],
   "content_scripts": [

@@ -460,6 +460,7 @@ function menuHtmlBody() {
     #hack_menu {
       margin-right: 12vw !important;
       margin-left: 12vw !important;
+      overflow: hidden;
     }
     #lte_rsrq,
     #lte_rsrp,
@@ -486,6 +487,7 @@ function menuHtmlBody() {
       word-wrap: break-word;
       width: 25%;
       border-left:1px solid #000;
+      height: 66vh;
     }
     .row:after {
       content: "";
@@ -529,7 +531,7 @@ function menuHtmlBody() {
   <div id="hack_menu">
     <div class="centered">
       <h2><a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
-        ZTE-MU5001-HACK V2.5.0
+        ZTE-MU5001-HACK V2.5.1
         </a>
       </h2>
     </div>
@@ -723,7 +725,7 @@ function ftb() {
 }
 
 signal = "";
-version = "V2.5.0";
+version = "V2.5.1";
 
 $("#txtUserName").attr("maxlength", "100");
 console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");
