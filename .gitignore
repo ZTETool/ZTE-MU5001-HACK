@@ -1,4 +1,6 @@
-node_modules
-package*
-web-ext-artifacts
-.web-extension-id
+# WIP FILES
+**/*.ignored.**
+
+# FIREFOX BUILD
+firefox/web-ext-artifacts
+firefox/.web-extension-id
