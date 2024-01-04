@@ -7,9 +7,9 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 
 ## INSTALATION
 
-- For the V1 approach just copy and paste the code in the browser console as usual(works in any browser). Also can be obfuscated and saved as a favorite as before, but obfuscated version is not released yet.
+- For the V1 approach just copy and paste the code from [src/hack.js](src/hack.js) in the browser console as usual(works in any browser). Also can be obfuscated and saved as a favorite as before, but obfuscated version is not released yet.
 
-- For the V2 approach, go to the releases page, download the xpi file, install in your browser, allow incognito if needed. The extension will run automatically when the active tab is `http(s)://192.168.0.1/*` or `http(s)://ufi.ztedevice.com/*`.
+- For the V2 approach, go to the [releases page](https://github.com/the-harry/ZTE-MU5001-HACK/releases), download the xpi file in the assets section, install in your browser, allow incognito if needed. The extension will run automatically when the active tab is `http(s)://192.168.0.1/*` or `http(s)://ufi.ztedevice.com/*`.
 
 
 ## FEATURES
@@ -78,9 +78,9 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 export MOZILLA_API_KEY="user:333333333:000"
 export MOZILLA_API_SECRET=="HUAEHUEHUAEHUAHEUHEAUE"
 
-docker-compose up --build
+docker-compose down && docker-compose up --build
 
-# xpi file should be available under web-ext-artifacts
+# xpi file should be available under firefox/web-ext-artifacts once the container exits
 ```
 
 ## ORIGINAL CREDITS AND FURTHER RESOURCES
@@ -97,15 +97,15 @@ docker-compose up --build
 ## ROADMAP/TODO
 
 - V2
-  - Fix CELL tower position broken link;
+  - compile extension for brave/chrome;
 
 - V3
-  - compile extension for brave/chrome;
-  - Get DHCP IP list somehow;
-  - Create automated script to deploy openwrt compatible router using USB Ethernet in a raspberry pi(3B+ at least);
+  - Create automated script to deploy openwrt compatible router using USB Ethernet in a raspberry pi(3B+ at least);  
+  - Improve Front-end(move html/css code to separated files);
+  - Fix CELL tower position broken link;
 
 - V4
-  - Improve Front-end(move html/css code to separated files);
   - Create obfuscated version working with favorites approach;
   - Create forms for the hidden actions so it becomes a regular menu item
   - Custom firmware with new code;
+  - Get DHCP IP list somehow;
