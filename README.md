@@ -13,6 +13,8 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 
 No support for new browser extensions will be provided as they're more annoying than Firefox to work with and you can just copy and paste it.
 
+If you wish to also install OpenWrt in a raspberry PI to use it as main router and connect the ZTE as a modem [check this doc](openwrt/README.md).
+
 ## FEATURES
 
 #### New V2.4.3 screenshots
@@ -38,6 +40,8 @@ docker-compose down && docker-compose up --build
 ## ROADMAP/TODO
 
 [ZTE-MU5001-HACK Kanban](https://github.com/users/the-harry/projects/4)
+
+Do you have any idea, suggestion or complaint? Or perhaps found a missing menu item or action? [Please open an issue here!](https://github.com/the-harry/ZTE-MU5001-HACK/issues)
 
 
 ## ORIGINAL CREDITS AND FURTHER RESOURCES
