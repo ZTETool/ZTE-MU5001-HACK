@@ -43,10 +43,12 @@
 ## wifi
 # reboot
 
+# part 1 ENDS!!!!!
 
 # 8 - connect to wifi network via GUI (replace connection)
 # test connection with ping google.com
 
+# UPDATE AND INSTALL BASIC PACKAGES
 opkg update && opkg install kmod-usb-net-rndis kmod-usb-net-cdc-ncm \
              kmod-usb-net-huawei-cdc-ncm kmod-usb-net-cdc-eem \
              kmod-usb-net-cdc-ether kmod-usb-net-cdc-subset kmod-nls-base \
@@ -54,21 +56,21 @@ opkg update && opkg install kmod-usb-net-rndis kmod-usb-net-cdc-ncm \
              kmod-usb-net-ipheth usbmuxd libimobiledevice usbutils \
              parted losetup resize2fs
 
-# Configure startup scripts to resize disk
+# GENERATE INITIAL CONFIG FILES FOR DISK RESIZE
 cat << "EOF" > /etc/uci-defaults/70-rootpt-resize
 if [ ! -e /etc/rootpt-resize ] \
 && type parted > /dev/null \
 && lock -n /var/lock/root-resize
 then
-ROOT_BLK="$(readlink -f /sys/dev/block/"$(awk -e \
-'$9=="/dev/root"{print $3}' /proc/self/mountinfo)")"
-ROOT_DISK="/dev/$(basename "${ROOT_BLK%/*}")"
-ROOT_PART="${ROOT_BLK##*[^0-9]}"
-parted -f -s "${ROOT_DISK}" \
-resizepart "${ROOT_PART}" 100%
-mount_root done
-touch /etc/rootpt-resize
-reboot
+  ROOT_BLK="$(readlink -f /sys/dev/block/"$(awk -e \
+  '$9=="/dev/root"{print $3}' /proc/self/mountinfo)")"
+  ROOT_DISK="/dev/$(basename "${ROOT_BLK%/*}")"
+  ROOT_PART="${ROOT_BLK##*[^0-9]}"
+  parted -f -s "${ROOT_DISK}" \
+  resizepart "${ROOT_PART}" 100%
+  mount_root done
+  touch /etc/rootpt-resize
+  reboot
 fi
 exit 1
 EOF
@@ -80,20 +82,20 @@ if [ ! -e /etc/rootfs-resize ] \
 && type resize2fs > /dev/null \
 && lock -n /var/lock/root-resize
 then
-ROOT_BLK="$(readlink -f /sys/dev/block/"$(awk -e \
-'$9=="/dev/root"{print $3}' /proc/self/mountinfo)")"
-ROOT_DEV="/dev/${ROOT_BLK##*/}"
-LOOP_DEV="$(awk -e '$5=="/overlay"{print $9}' \
-/proc/self/mountinfo)"
-if [ -z "${LOOP_DEV}" ]
-then
-LOOP_DEV="$(losetup -f)"
-losetup "${LOOP_DEV}" "${ROOT_DEV}"
-fi
-resize2fs -f "${LOOP_DEV}"
-mount_root done
-touch /etc/rootfs-resize
-reboot
+  ROOT_BLK="$(readlink -f /sys/dev/block/"$(awk -e \
+  '$9=="/dev/root"{print $3}' /proc/self/mountinfo)")"
+  ROOT_DEV="/dev/${ROOT_BLK##*/}"
+  LOOP_DEV="$(awk -e '$5=="/overlay"{print $9}' \
+  /proc/self/mountinfo)"
+  if [ -z "${LOOP_DEV}" ]
+  then
+    LOOP_DEV="$(losetup -f)"
+    losetup "${LOOP_DEV}" "${ROOT_DEV}"
+  fi
+  resize2fs -f "${LOOP_DEV}"
+  mount_root done
+  touch /etc/rootfs-resize
+  reboot
 fi
 exit 1
 EOF
@@ -103,24 +105,19 @@ cat << "EOF" >> /etc/sysupgrade.conf
 /etc/uci-defaults/80-rootfs-resize
 EOF
 
+# ENABLE USB0
 usbmuxd -v
-
 sed -i -e "\$i usbmuxd" /etc/rc.local
-
-# uci set network.wan.ifname="usb0"
-# uci set network.wan6.ifname="usb0"
 uci commit network
 /etc/init.d/network restart
-
-# set usb0 interface
 ifconfig usb0 up
 
 sh /etc/uci-defaults/70-rootpt-resize
 
 # run this script
 
-# create APs
-#
+# create AP for internal antenna(5ghz AP)
+# vim /etc/config/wireless
 # config wifi-device 'radio0'
 #     option type 'mac80211'
 #     option channel '36'
@@ -137,7 +134,16 @@ sh /etc/uci-defaults/70-rootpt-resize
 #     option encryption 'psk2'
 #     option key 'PASS'
 #     option disabled '0'
+# uci commit wireless
 
+# STATIC MAC
+# vim /etc/config/network
+# config device
+# 	option name 'usb0'
+# 	option macaddr '00:11:22:33:44:55'
+# uci commit network
 
 # test without WWLAN interface via
 # remove WWLAN interface via GUI
+
+# Add custom antennas and create their AP
