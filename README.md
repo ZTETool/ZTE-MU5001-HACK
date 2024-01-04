@@ -4,7 +4,6 @@
 
 This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK]) improves front-end menu, documentation regarding available menus, provides the original approach of copy-paste from the V1 and adds a Firefox extension as a V2, the code was also refactored in order to be more readable and make it easier for any further modifications.
 
-
 ## INSTALATION
 
 - For the V1 approach just copy and paste the code from [src/hack.js](src/hack.js) in the browser console as usual(works in any browser). Also can be obfuscated and saved as a favorite as before, but obfuscated version is not released yet.
@@ -17,10 +16,10 @@ If you wish to also install OpenWrt in a raspberry PI to use it as main router a
 
 ## FEATURES
 
-#### New V2.4.3 screenshots
+#### New V2.5.0 screenshots
 
-![v2.4.3-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/7896909f-537e-4cef-9548-c940f2e998e3)
-![v2.4.3-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ffbb882e-56d7-4877-90bd-be0f6dee19d4)
+![v2.5.0-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/2980b13c-6477-4f7b-9a83-a7b5db418bd8)
+![v2.5.0-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ef058ab8-1a53-4680-9ffa-c1044e53103d)
 
 - Live metrics
 - All available menus of the router(hidden ones and the regular ones)
@@ -37,12 +36,11 @@ docker-compose down && docker-compose up --build
 # xpi file should be available under src/web-ext-artifacts once the container exits
 ```
 
-## ROADMAP/TODO
+## ROADMAP / TODO
 
 [ZTE-MU5001-HACK Kanban](https://github.com/users/the-harry/projects/4)
 
-Do you have any idea, suggestion or complaint? Or perhaps found a missing menu item or action? [Please open an issue here!](https://github.com/the-harry/ZTE-MU5001-HACK/issues)
-
+Do you have any idea, suggestions or complaints? Or perhaps found a missing menu item or action? [Please open an issue here!](https://github.com/the-harry/ZTE-MU5001-HACK/issues)
 
 ## ORIGINAL CREDITS AND FURTHER RESOURCES
 

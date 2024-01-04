@@ -1,4 +1,4 @@
-# OpenWrt RaspberryPI - ZTE USB COMPATIBLE
+# OpenWrt RaspberryPI USB Ethernet - ZTE COMPATIBLE
 
 # INTRO
 

@@ -529,7 +529,7 @@ function menuHtmlBody() {
   <div id="hack_menu">
     <div class="centered">
       <h2><a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
-        ZTE-MU5001-HACK V2.4.3
+        ZTE-MU5001-HACK V2.5.0
         </a>
       </h2>
     </div>
@@ -723,7 +723,7 @@ function ftb() {
 }
 
 signal = "";
-version = "V2.4.3";
+version = "V2.5.0";
 
 $("#txtUserName").attr("maxlength", "100");
 console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");
