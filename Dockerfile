@@ -1,9 +1,17 @@
 FROM node:alpine
 
-RUN npm install -g web-ext
+ARG MANIFEST_PATH
+ARG COMMAND
 
 WORKDIR /zte
 
-COPY . .
+COPY src/content.js content.js
+COPY src/hack.js hack.js
+COPY $MANIFEST_PATH manifest.json
 
-CMD ["web-ext", "sign", "--api-key=${MOZILLA_API_KEY}", "--api-secret=${MOZILLA_API_SECRET}"]
+RUN chown -R root:root /zte && \
+    npm install -g web-ext
+
+ENV COMMAND=$COMMAND
+
+CMD $COMMAND

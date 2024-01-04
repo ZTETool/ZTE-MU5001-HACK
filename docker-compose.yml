@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
+  firefox:
+    build:
+      context: .
+      args:
+        MANIFEST_PATH: ./firefox/manifest.json
+        COMMAND: "web-ext sign --api-key=${MOZILLA_API_KEY} --api-secret=${MOZILLA_API_SECRET}"
     volumes:
-      - .:/zte
-    tty: true
-    stdin_open: true
-    environment:
-      MOZILLA_API_KEY: ${MOZILLA_API_KEY}
-      MOZILLA_API_SECRET: ${MOZILLA_API_SECRET}
+      - ./firefox/web-ext-artifacts:/zte/web-ext-artifacts
+    command: /bin/sh -c "`printenv COMMAND`;ls web-ext-artifacts"

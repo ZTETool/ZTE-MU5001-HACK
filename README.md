@@ -14,10 +14,10 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 
 ## FEATURES
 
-#### New V2.3.2 screenshots
+#### New V2.4.2 screenshots
 
-![v2.3.2-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/7896909f-537e-4cef-9548-c940f2e998e3)
-![v2.3.2-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ffbb882e-56d7-4877-90bd-be0f6dee19d4)
+![v2.4.2-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/7896909f-537e-4cef-9548-c940f2e998e3)
+![v2.4.2-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ffbb882e-56d7-4877-90bd-be0f6dee19d4)
 
 ### LIVE METRICS
 
@@ -82,8 +82,6 @@ docker-compose up --build
 
 # xpi file should be available under web-ext-artifacts
 ```
-
-uglifyjs hack.js -o obfuscated_hack.js -c -m
 
 ## ORIGINAL CREDITS AND FURTHER RESOURCES
 
