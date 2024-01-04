@@ -1,7 +1,6 @@
 javascript: ftb();
 
 // METRICS FUNCTIONS
-
 function getStatus() {
   $.ajax({
     type: "GET",
@@ -530,7 +529,7 @@ function menuHtmlBody() {
   <div id="hack_menu">
     <div class="centered">
       <h2><a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
-        ZTE-MU5001-HACK V2.3.2
+        ZTE-MU5001-HACK V2.4.2
         </a>
       </h2>
     </div>
@@ -674,8 +673,11 @@ function menuHtmlBody() {
         </div>
         <ul>
           <li><a href="#traffic_alert" onclick="scrowDown()">Data Management</a></li>
-          <li><a href="#sms" onclick="scrowDown()">SMS</a></li>
           <li><a href="#phonebook" onclick="scrowDown()">Phonebook</a></li>
+          <li><a href="#sms" onclick="scrowDown()">SMS</a></li>
+          <ul>
+            <li><a href="#sms_setting" onclick="scrowDown()">SMS Settings</a></li>
+          </ul>
         </ul>
       </div>
       <div class="column">
@@ -721,7 +723,7 @@ function ftb() {
 }
 
 signal = "";
-version = "V2.3.2";
+version = "V2.4.2";
 
 $("#txtUserName").attr("maxlength", "100");
 console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");
