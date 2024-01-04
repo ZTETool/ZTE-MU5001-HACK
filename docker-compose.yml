@@ -5,8 +5,7 @@ services:
     build:
       context: .
       args:
-        MANIFEST_PATH: ./firefox/manifest.json
         COMMAND: "web-ext sign --api-key=${MOZILLA_API_KEY} --api-secret=${MOZILLA_API_SECRET}"
     volumes:
-      - ./firefox/web-ext-artifacts:/zte/web-ext-artifacts
+      - ./src/web-ext-artifacts:/zte/web-ext-artifacts
     command: /bin/sh -c "`printenv COMMAND`;ls web-ext-artifacts"

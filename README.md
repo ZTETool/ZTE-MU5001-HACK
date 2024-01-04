@@ -2,7 +2,7 @@
 
 ## ABOUT
 
-This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK]) improves front-end menu, documentation regarding available menus, provides the original approach of copy-paste from the V1 and adds an experimental Firefox extension as a V2, the code was also refactored in order to be more readable and make it easier for any further extension or modifications.
+This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK]) improves front-end menu, documentation regarding available menus, provides the original approach of copy-paste from the V1 and adds a Firefox extension as a V2, the code was also refactored in order to be more readable and make it easier for any further modifications.
 
 
 ## INSTALATION
@@ -11,66 +11,18 @@ This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-
 
 - For the V2 approach, go to the [releases page](https://github.com/the-harry/ZTE-MU5001-HACK/releases), download the xpi file in the assets section, install in your browser, allow incognito if needed. The extension will run automatically when the active tab is `http(s)://192.168.0.1/*` or `http(s)://ufi.ztedevice.com/*`.
 
+No support for new browser extensions will be provided as they're more annoying than Firefox to work with and you can just copy and paste it.
 
 ## FEATURES
 
-#### New V2.4.2 screenshots
+#### New V2.4.3 screenshots
 
-![v2.4.2-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/7896909f-537e-4cef-9548-c940f2e998e3)
-![v2.4.2-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ffbb882e-56d7-4877-90bd-be0f6dee19d4)
+![v2.4.3-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/7896909f-537e-4cef-9548-c940f2e998e3)
+![v2.4.3-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ffbb882e-56d7-4877-90bd-be0f6dee19d4)
 
-### LIVE METRICS
-
-- **SOFTWARE VERSION INFO** (Show firmware versions)
-
-- **SIGNAL STRENGTH**
-  - nr5rsrp
-  - RSRP
-  - RSRQ
-
-- **WAN**
-  - External IP
-  - DNS Servers
-
-- **4g/5g Metrics***
-  - RSRP
-  - RSRQ
-  - RSSI
-  - SINR
-  - 5SINR
-  - NETWORK TYPE
-  - ENB ID
-  - CELL ID
-
-- **BANDS INFO**
-  - MAIN
-  - CA
-  - CELL LOCK MODE
-  - EXTRA BANDS INFO
-  - FULL NETWORK INFORMATION
-
-- **TEMPERATURE METRICS**
-  - Temperature 4G modem
-  - Temperature 5G modem
-  - FULL TEMPERATURE METRICS
-
-### HIDDEN MENUS
-
-- **Debug** (PS No Service Restart Set)
-- **FastBoot** (If enable Fast Boot function, your device will start in a short time.)
-- **Power Save** (Set PCIE power consumption. Turning on the switch will enable PCIE L1/L1SS and enable ASPM energy saving function.)
-- **VPN client** (Connects to the private network established on the public network for secure communication and supports L2TP and PPTP types.)
-- **MEC Settings** (MEC coordination feature needs support of customized edge computing server. For details, please contact your 5G service provider.)
-- **Temperature Control Settings** (Sensors Temperature Control Settings)
-- **WIFI** (Wi-Fi Settings)
-
-## HIDDEN ACTIONS
-
-- **SET 4G** (Input LTE bands number, separated by + char (example 1+3+20).If you want to use every supported band, write 'AUTO'.)
-- **SET 5G** (Input 5G bands number, separated by + char (example 3+78).If you want to use every supported band, write 'AUTO'.)
-- **SET CUSTOM DNS** (Input 2 dns servers, separated by ","  (example 1.1.1.1,1.0.0.1).If you want to use PROVIDER settings, write 'AUTO'.)
-- **CELL LOCK** (Input PCI,EARFCN, separated by ',' char (example 116,3350). Leave default for lock on current main band.)
-- **REBOOT** (Reboots after confirmation)
+- Live metrics
+- All available menus of the router(hidden ones and the regular ones)
+- Hidden actions are listed as a menu item to be more transparent for the user
 
 ## MANUALLY SIGNING FIREFOX EXT
 
@@ -80,8 +32,13 @@ export MOZILLA_API_SECRET=="HUAEHUEHUAEHUAHEUHEAUE"
 
 docker-compose down && docker-compose up --build
 
-# xpi file should be available under firefox/web-ext-artifacts once the container exits
+# xpi file should be available under src/web-ext-artifacts once the container exits
 ```
+
+## ROADMAP/TODO
+
+[ZTE-MU5001-HACK Kanban](https://github.com/users/the-harry/projects/4)
+
 
 ## ORIGINAL CREDITS AND FURTHER RESOURCES
 
@@ -92,20 +49,3 @@ docker-compose down && docker-compose up --build
 - [Thread on Adslgr.com(Greek)](https://www.adslgr.com/forum/threads/1220156-%CE%9Cifi-mu5001-Secret-settings/page3/)
 - [Old repo for ZTE-MU5001-BROWSER-HACK(404)](https://github.com/sklavosit/ZTE-MU5001-BROWSER-HACK)
 - [mifi-mu5001-lib firmware(reverse engineered)](https://github.com/DarkNikGr/mifi-mu5001-lib/)
-
-
-## ROADMAP/TODO
-
-- V2
-  - compile extension for brave/chrome;
-
-- V3
-  - Create automated script to deploy openwrt compatible router using USB Ethernet in a raspberry pi(3B+ at least);  
-  - Improve Front-end(move html/css code to separated files);
-  - Fix CELL tower position broken link;
-
-- V4
-  - Create obfuscated version working with favorites approach;
-  - Create forms for the hidden actions so it becomes a regular menu item
-  - Custom firmware with new code;
-  - Get DHCP IP list somehow;

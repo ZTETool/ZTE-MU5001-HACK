@@ -2,5 +2,5 @@
 **/*.ignored.**
 
 # FIREFOX BUILD
-firefox/web-ext-artifacts
-firefox/.web-extension-id
+src/web-ext-artifacts
+src/.web-extension-id
