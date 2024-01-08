@@ -1,0 +1,177 @@
+body {
+  background-color: #1e1e1e;
+  color: green;
+  margin: 0;
+  padding: 0;
+}
+
+span.statusItem:nth-child(12) > b:nth-child(1) {
+  color: green;
+}
+
+#HACK_MENU, #HACK_MENU * {
+  color: #ffffff;
+}
+
+#HACK_MENU a {
+  color: #ffffff;
+}
+
+#HACK_MENU a:hover {
+  cursor: pointer;
+}
+
+#HACK_MENU .centered {
+  text-align: center;
+}
+
+#HACK_MENU .chart-container {
+  margin: 0 auto;
+  width: 100vw;
+}
+
+#HACK_MENU .chart-container canvas {
+  height: 200px;
+}
+
+#HACK_MENU .dropdown-content {
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  display: none;
+  left: 0;
+  min-width: 160px;
+  position: absolute;
+  right: 0;
+  z-index: 1001;
+}
+
+#HACK_MENU .dropdown-content a {
+  background-color: #3d3d3d;
+  border-bottom: 1px solid #555;
+  color: white;
+  display: block;
+  padding: 10px 15px;
+  text-align: left;
+}
+
+#HACK_MENU .dropdown-content a:hover {
+  background-color: #2a2a2a;
+}
+
+#HACK_MENU .menu-item {
+  align-items: center;
+  background-color: #3d3d3d;
+  display: flex;
+  justify-content: center;
+  margin: 0 10px;
+  min-height: 50px;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  z-index: 1000;
+}
+
+#HACK_MENU .menu-item button {
+  background-color: #3d3d3d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 15px;
+  text-align: center;
+  width: 100%;
+}
+
+#HACK_MENU .menu-item button::after {
+  content: '▼';
+  float: right;
+  margin-left: 5px;
+}
+
+#HACK_MENU .menu-item:hover button {
+  background-color: #4e4e4e;
+}
+
+#HACK_MENU .menu-item:hover .dropdown-content {
+  display: block;
+  top: 100%;
+}
+
+#HACK_MENU .menu-item.info-item {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  order: -1;
+}
+
+#HACK_MENU .menu-item.temp-item {
+  color: white;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+#HACK_MENU #HIDDEN_MENUS {
+  background-color: #3d3d3d;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+#HACK_MENU #METRICS {
+  background-color: #262626;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#HACK_MENU .metrics-box {
+  background-color: #3d3d3d;
+  border: 1px solid #555;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-around;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+#HACK_MENU .metrics-box div,
+#HACK_MENU .metrics-box a {
+  margin: 5px 0;
+}
+
+#HACK_MENU .metrics-box:nth-child(2) {
+  align-items: center;
+  flex-direction: row;
+  flex-grow: 3;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#HACK_MENU .metrics-box:first-child,
+#HACK_MENU .metrics-box:last-child {
+  flex-basis: 10vw;
+}
+
+#HACK_MENU .metrics-box:nth-child(2) {
+  flex-basis: auto;
+}
+
+#HACK_MENU .menu-item button,
+#HACK_MENU .menu-item a {
+  text-align: center;
+  width: 100%;
+}
+
+#HACK_MENU .menu-item,
+#HACK_MENU .info-item {
+  flex-basis: content;
+  margin: 0;
+}

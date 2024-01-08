@@ -16,10 +16,9 @@ If you wish to also install OpenWrt in a raspberry PI to use it as main router a
 
 ## FEATURES
 
-#### New V2.5.1 screenshots
+#### New V3.0.0 screenshots
 
-![v2.5.1-1](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/2980b13c-6477-4f7b-9a83-a7b5db418bd8)
-![v2.5.1-2](https://github.com/the-harry/ZTE-MU5001-HACK/assets/38408536/ef058ab8-1a53-4680-9ffa-c1044e53103d)
+![V3.0.0](https://github.com/ZTETool/ZTE-MU5001-HACK/assets/38408536/e1565d82-2e8a-4712-beeb-3b75f700551f)
 
 - Live metrics
 - All available menus of the router(hidden ones and the regular ones)

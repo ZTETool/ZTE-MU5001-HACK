@@ -1,6 +1,139 @@
-javascript: ftb();
+var version = "V3.0.0";
+var signal = "";
+var chart;
+var memory = {
+    time: [],
+    NR5RSRP: [],
+    SINR5G: [],
+    RSRP: [],
+    SINR: [],
+    RSRQ: [],
+    RSSI: [],
+};
+var maxDataPoints = 300;
 
-// METRICS FUNCTIONS
+function createLineChart(chartId) {
+    const ctx = document.getElementById(chartId).getContext('2d');
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(255, 0, 0, 0.2)');
+    gradient.addColorStop(1, 'rgba(0, 255, 0, 0.2)');
+
+    return new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: memory.time,
+            datasets: [],
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            second: 'H:mm:ss',
+                            minute: 'H:mm',
+                            hour: 'H:mm',
+                        }
+                    },
+                    ticks: {
+                        color: '#ffffff',
+                    },
+                    gridLines: {
+                        color: 'rgba(255, 255, 255, 0.1)',
+                    },
+                }],
+                yAxes: [{
+                    beginAtZero: false,
+                    min: -120,
+                    max: 30,
+                    stepSize: 20,
+                    ticks: {
+                        color: '#ffffff',
+                        maxRotation: 0,
+                        callback: function(value, index, values) {
+                            return `${value} dBm`;
+                        }
+                    },
+                    gridLines: {
+                        color: 'rgba(255, 255, 255, 0.1)',
+                    },
+                }]
+            },
+            legend: {
+                position: 'right',
+                labels: {
+                    fontColor: '#ffffff',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    generateLabels: function (chart) {
+                      return Chart.defaults.global.legend.labels.generateLabels(chart).map(label => {
+                          const data = chart.data.datasets[label.datasetIndex].data;
+                          const value = data.length ? parseFloat(data[data.length - 1].y).toFixed(2) : 'N/A';
+                          label.text = `${label.text} (${value} dBm)`;
+                          return label;
+                      });
+                  },
+                }
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(context) {
+                        const datasetLabel = context.dataset.label || '';
+                        const yLabel = context.parsed.y + ' dBm';
+                        return `${datasetLabel}: ${yLabel}`;
+                    },
+                    title: function(tooltipItems) {
+                        return `Time: ${tooltipItems[0].label}`;
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    pointStyle: 'circle',
+                },
+                line: {
+                    backgroundColor: gradient,
+                },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    top: 10,
+                    right: 10,
+                    bottom: 10,
+                    left: 10,
+                }
+            }
+        }
+    });
+}
+
+function updateChartData(chart, metricName, data, color) {
+    const currentTime = new Date();
+
+    memory[metricName].push({ time: currentTime, value: data });
+
+    if (memory[metricName].length > maxDataPoints) {
+        memory[metricName].shift();
+    }
+
+    const datasetIndex = chart.data.datasets.findIndex(ds => ds.label === metricName);
+    if (datasetIndex !== -1) {
+        chart.data.datasets[datasetIndex].data = memory[metricName].map(point => ({ x: point.time, y: point.value }));
+    } else {
+        chart.data.datasets.push({
+            label: metricName,
+            data: memory[metricName].map(point => ({ x: point.time, y: point.value })),
+            fill: false,
+            borderColor: color,
+            borderWidth: 2,
+            backgroundColor: color,
+        });
+    }
+
+    chart.update();
+}
+
 function getStatus() {
   $.ajax({
     type: "GET",
@@ -44,12 +177,15 @@ function getStatus() {
           "lte_ca_pcell_band",
         ], i = 0; i < vars.length; i++) window[vars[i]] = data[vars[i]];
 
-      if ($("#nr5rsrpb").parent().toggle("" != data.nr5g_action_band)) {
-        $("#Z5g_SINR").parent().toggle("" != data.nr5g_action_band);
-        setGraph("nr5rsrp", Z5g_rsrp, -130, -60);
-        setGraph("rsrp", lte_rsrp, -130, -60);
-        setGraph("rsrq", lte_rsrq, -16, -3);
-      }
+      pm_modem_5g = Math.abs(parseFloat(pm_modem_5g));
+      network_type = getMobileNetworkSymbol(network_type);
+
+      updateChartData(chart, "NR5RSRP", Z5g_rsrp, 'rgba(50, 205, 50, 1)');
+      updateChartData(chart, "SINR5G", Z5g_SINR, 'rgba(245, 155, 39, 0.8)');
+      updateChartData(chart, "RSRP", lte_rsrp, 'rgba(148, 0, 211, 1)');
+      updateChartData(chart, "SINR", lte_snr, 'rgba(245, 236, 39, 0.8)');
+      updateChartData(chart, "RSRQ", lte_rsrq, 'rgba(67, 147, 221, 0.8)');
+      updateChartData(chart, "RSSI", lte_rssi, 'rgba(231, 69, 238, 0.8)');
 
       cellId = parseInt(cell_id, 16);
       enbId = Math.trunc(cellId / 256);
@@ -119,34 +255,23 @@ function getStatus() {
   });
 }
 
-function setGraph(graphId, value, lowerBound, upperBound) {
-  var transformedValue = value;
-  var percentage = ((value = (value = upperBound < value ? upperBound : value) < lowerBound ? lowerBound : value) - lowerBound) / (upperBound - lowerBound) * 100;
+function getMobileNetworkSymbol(network_type) {
+    const networkSymbols = {
+        '2G': '2G',
+        '3G': '3G',
+        '4G': '4G',
+        '4G+': '4G+',
+        '5G': '5G',
+        'LTE': '4G',
+        'LTE-NSA': '4G+',
+        'ENDC': '5G',
+    };
 
-  if (percentage <= 30) {
-    percentage = 30;
-  }
-
-  if (100 == percentage) {
-    percentage = 30;
-  }
-
-  var widthString = String(percentage) + String.fromCharCode(37);
-  var elementId = "#" + graphId + "b";
-
-  $(elementId).animate({ width: widthString, speed: "fast" });
-  $(elementId).html(graphId + " : " + transformedValue);
-
-  if (percentage < 50) {
-    $(elementId).css("background-color", "yellow").css("color", "black");
-  } else {
-    if (85 < percentage) {
-      $(elementId).css("background-color", "orange");
+    if (networkSymbols.hasOwnProperty(network_type)) {
+        return networkSymbols[network_type];
     } else {
-      $(elementId).css("background-color", "green");
+        return network_type;
     }
-    $(elementId).css("color", "white");
-  }
 }
 
 function softwareInfo() {
@@ -187,11 +312,9 @@ function extraBandsInfo() {
   alert(bandsInfoText);
 }
 
-// HIDDEN ACTIONS FUNCTIONS
-
 function lteBandSelection() {
   var userInput = prompt(
-    "Please input LTE bands number, separated by + char (example 1+3+20). If you want to use every supported band, write 'AUTO'.",
+    "Please input LTE bands number, separated by + char (example 3+28+20+7+1). If you want to use every supported band, write 'AUTO'.",
     "AUTO"
   );
 
@@ -240,7 +363,7 @@ function lteBandSelection() {
 function nrBandSelection() {
   var userInput,
     userPrompt = (userPrompt = prompt(
-      "Please input 5G bands number, separated by + char (example 3+78). If you want to use every supported band, write 'AUTO'.",
+      "Please input 5G bands number, separated by + char (example 79+77+78+89+88). If you want to use every supported band, write 'AUTO'.",
       "AUTO"
     )) && userPrompt.toLowerCase();
 
@@ -301,7 +424,7 @@ function setDNS() {
             isTest: "false",
             goformId: "APN_PROC_EX",
             wan_apn: signal.wan_apn,
-            profile_name: "mslave",
+            profile_name: "custom_dns_apn_profile",
             apn_action: "save",
             apn_mode: "manual",
             pdp_type: "IP",
@@ -424,27 +547,11 @@ function reboot() {
   }
 }
 
-// FE & INTERNAL FUNCTIONS
-
 function handleCommunicationError(xhr, textStatus, errorThrown) {
   alert("Communication Error");
   console.log(xhr);
   console.log(textStatus);
   console.log(errorThrown);
-}
-
-function openTab(event, tabName) {
-  var tabs, tabLinks, i;
-  tabs = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabs.length; i++) {
-    tabs[i].style.display = "none";
-  }
-  tabLinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tabLinks.length; i++) {
-    tabLinks[i].className = tabLinks[i].className.replace(" active", "");
-  }
-  document.getElementById(tabName).style.display = "block";
-  event.currentTarget.className += " active";
 }
 
 function scrowDown() {
@@ -454,281 +561,14 @@ function scrowDown() {
   });
 }
 
-function menuHtmlBody() {
-  return `
-  <style>
-    #hack_menu {
-      margin-right: 12vw !important;
-      margin-left: 12vw !important;
-      overflow: hidden;
-    }
-    #lte_rsrq,
-    #lte_rsrp,
-    #lte_rssi,
-    #enbid,
-    #lte_snr,
-    #Z5g_SINR,
-    #cell_id,
-    #lte_ca_pcell_band,
-    #pm_sensor_mdm,
-    #pm_modem_5g,
-    #earfcn_lock,
-    #wan_ipaddr {
-      color: #b00;
-      font-weight: 700;
-    }
-    .menu_item ul li {
-      display: inline;
-      margin-right: 5px;
-      margin-left: 5px;
-    }
-    .column {
-      float: left;
-      word-wrap: break-word;
-      width: 25%;
-      border-left:1px solid #000;
-      height: 66vh;
-    }
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    .centered {
-      text-align: center;
-    }
-    a {
-      cursor: pointer;
-    }
-    .tab {
-      overflow: hidden;
-      border: 1px solid #ccc;
-      background-color: #f1f1f1;
-    }
-    .tab button {
-      background-color: inherit;
-      float: left;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      padding: 14px 16px;
-      transition: 0.3s;
-      font-size: 17px;
-    }
-    .tab button:hover {
-      background-color: #ddd;
-    }
-    .tab button.active {
-      background-color: #ccc;
-    }
-    .tabcontent {
-      display: none;
-      padding: 6px 12px;
-      border: 1px solid #ccc;
-      border-top: none;
-    }
-  </style>
-  <div id="hack_menu">
-    <div class="centered">
-      <h2><a href="https://github.com/the-harry/ZTE-MU5001-HACK" target="_blank">
-        ZTE-MU5001-HACK V2.5.1
-        </a>
-      </h2>
-    </div>
-    <div class="tab">
-      <button class="tablinks" onclick="openTab(event, 'METRICS')">METRICS</button>
-      <button class="tablinks" onclick="openTab(event, 'HIDDEN_MENUS')">MENUS</button>
-    </div>
-    <div id="METRICS" class="tabcontent">
-      <div class="centered">
-        <a onclick="softwareInfo()">SOFTWARE VERSION INFO</a>
-      </div>
-      <hr>
-      <div class="centered">
-        <code>Signal strength</code>
-      </div>
-      <br>
-      <div id="signal_bar">
-        <div class="bar_div">
-          <div class="bar_item" id="nr5rsrpb"></div>
-        </div>
-        <div class="bar_div">
-          <div class="bar_item" id="rsrpb"></div>
-        </div>
-        <div class="bar_div">
-          <div class="bar_item" id="rsrqb"></div>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="column">
-          <div class="centered">
-            <code>WAN</code>
-          </div>
-          <br>
-          <ul>
-            <li>External IP: <span id="wan_ipaddr"></span></li>
-            <li>DNS SERVERS: <span id="dns_mode"></span></li>
-          </ul>
-        </div>
-        <div class="column">
-          <div class="centered">
-            <code>4g/5g Metrics</code>
-          </div>
-          <br>
-          <ul>
-            <li>RSRP: <span id="lte_rsrp"></span>dBm</li>
-            <li>RSRQ: <span id="lte_rsrq"></span>dB</li>
-            <li>RSSI: <span id="lte_rssi"></span>dBm</li>
-            <li>SINR: <span id="lte_snr"></span>dB</li>
-            <li>5SINR: <span id="Z5g_SINR"></span>dB</li>
-            <li>NETWORK TYPE: <span id="network_type">NETWORK TYPE</span></li>
-            <li>ENB ID: <a id="lteitaly" target="lteitaly" href="#"><span id="enbid">#</span></a></li>
-            <li>CELL ID: <span id="cell_id">#</span></li>
-          </ul>
-        </div>
-        <div class="column">
-          <div class="centered">
-            <code>Bands and extra info</code>
-          </div>
-          <br>
-          <ul>
-            <li>MAIN: <span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth"></span></li>
-            <li id="ca">CA: <span id="lte_multi_ca_scell_info"></span></li>
-            <li>CELL LOCK MODE: <span id="earfcn_lock"></span></li>
-            <li> <a onclick="extraBandsInfo()">EXTRA BANDS INFO</a> </li>
-            <li><a href="#network_info" onclick="scrowDown()">View Full Network status</a></li>
-          </ul>
-        </div>
-        <div class="column">
-          <div class="centered">
-            <code>Temperature Metrics</code>
-          </div>
-          <br>
-          <ul>
-            <li>4G: <span id="pm_sensor_mdm"></span>°</li>
-            <li>5G: <span id="pm_modem_5g"></span>°</li>
-            <li><a href="#temp_status" onclick="scrowDown()">View Full Temperature Metrics</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div id="HIDDEN_MENUS" class="tabcontent hidden_menu_items row">
-      <div class="column">
-        <div class="centered">
-          <h4>General Network Settings</h4>
-        </div>
-        <ul>
-          <li><a href="#station_info" onclick="scrowDown()">Connected Devices</a></li>
-          <li>
-            <a href="#router_setting" onclick="scrowDown()">DHCP/MTU</a>
-            <ul>
-              <li><a href="#bind_addr_lan" onclick="scrowDown()">MAC-IP Bind</a></li>
-            </ul>
-          </li>
-          <li><a onclick="setDNS()">SET CUSTOM DNS</a></li>
-          <li>
-            <a href="#firewall" onclick="scrowDown()">Firewall</a>
-            <ul>
-              <li><a href="#port_filter" onclick="scrowDown()">Port Filter</a></li>
-              <li><a href="#port_forward" onclick="scrowDown()">Port Forward</a></li>
-              <li><a href="#port_map" onclick="scrowDown()">Port Map</a></li>
-              <li><a href="#upnp" onclick="scrowDown()">UPnP</a></li>
-              <li><a href="#dmz" onclick="scrowDown()">DMZ</a></li>
-              <li><a href="#vpn_client" onclick="scrowDown()">VPN client</a></li>
-              <li><a href="#system_security" onclick="scrowDown()">WAN Access</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="column">
-        <div class="centered">
-          <h4>Wi-Fi Settings</h4>
-        </div>
-        <ul>
-          <li><a href="#wifi_main" onclick="scrowDown()">Wi-Fi Main</a></li>
-          <li><a href="#wifi_guest" onclick="scrowDown()">Wi-Fi Guest</a></li>
-          <li><a href="#wps" onclick="scrowDown()">WPS</a></li>
-          <li><a href="#wifi_advance" onclick="scrowDown()">Wi-Fi Advanced settings</a></li>
-        </ul>
-      </div>
-      <div class="column">
-        <div class="centered">
-          <h4>Mobile Networks</h4>
-        </div>
-        <ul>
-          <li>
-            <a href="#internet_setting" onclick="scrowDown()">Connection Settings</a>
-            <ul>
-              <li><a href="#dial_setting" onclick="scrowDown()">Connection Mode</a></li>
-              <li><a href="#net_select" onclick="scrowDown()">Network Selection</a></li>
-              <li><a href="#apn_setting" onclick="scrowDown()">APN Settings</a></li>
-            </ul>
-          </li>
-          <li><a onclick="lteBandSelection()">SET 4G</a></li>
-          <li><a onclick="nrBandSelection()">SET 5G</a></li>
-          <li> <a onclick="cellLock()">CELL LOCK</a></li>
-        </ul>
-        <hr>
-        <div class="centered">
-          <h4>SIM Card Settings</h4>
-        </div>
-        <ul>
-          <li><a href="#traffic_alert" onclick="scrowDown()">Data Management</a></li>
-          <li><a href="#phonebook" onclick="scrowDown()">Phonebook</a></li>
-          <li><a href="#sms" onclick="scrowDown()">SMS</a></li>
-          <ul>
-            <li><a href="#sms_setting" onclick="scrowDown()">SMS Settings</a></li>
-          </ul>
-        </ul>
-      </div>
-      <div class="column">
-        <div class="centered">
-          <h4>Router Management</h4>
-        </div>
-        <ul>
-          <li> <a onclick="reboot()">FAST REBOOT</a> </li>
-          <li><a href="#restart" onclick="scrowDown()">Reboot</a></li>
-          <li><a href="#restore" onclick="scrowDown()">Restore</a></li>
-          <li><a href="#password_management" onclick="scrowDown()">Password Management</a></li>
-          <li><a href="#ota_update" onclick="scrowDown()">OTA Update</a></li>
-          <li><a href="#fastboot" onclick="scrowDown()">FastBoot</a></li>
-          <li><a href="#sleep_mode" onclick="scrowDown()">Sleep Mode</a></li>
-          <li><a href="#pcie_powersave" onclick="scrowDown()">PCIe Powersave</a></li>
-          <li><a href="#bsp_tc_settings" onclick="scrowDown()">Temperature Control</a></li>
-          <li><a href="#mec_setting" onclick="scrowDown()">MEC coordination</a></li>
-          <li><a href="#debug_page" onclick="scrowDown()">Debug Page</a></li>
-          <li>
-            <a href="#others" onclick="scrowDown()">Others</a>
-            <ul>
-              <li><a href="#diagnosis" onclick="scrowDown()">Diagnosis</a></li>
-              <li><a href="#network_info" onclick="scrowDown()">Network status</a></li>
-              <li><a href="#pin_management" onclick="scrowDown()">PIN Management</a></li>
-              <li><a href="#SNTP" onclick="scrowDown()">SNTP</a></li>
-              <li><a href="#restart_schedule" onclick="scrowDown()">Reboot Scheduling</a></li>
-              <li><a href="#watch_dog_setting" onclick="scrowDown()">Watch Dog Settings</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <br>
-  <hr>
-`
+function setChart() {
+  if (typeof window.createLineChart === 'function') {
+    chart = window.createLineChart("metricsChart");
+    setInterval(() => {
+      window.getStatus();
+    }, 1000);
+    console.error('chart set');
+  } else {
+    console.error('createLineChart function not defined');
+  }
 }
-
-function ftb() {
-  $(".color_background_blue").css("background-color", "#456");
-  $(".headcontainer").hide();
-  $("body").prepend(menuHtmlBody());
-}
-
-signal = "";
-version = "V2.5.1";
-
-$("#txtUserName").attr("maxlength", "100");
-console.log("INITIALIZING ZTE-MU5001-HACK " + version + "...");
-
-window.setInterval(getStatus, 200);
-$("#change").prop("disabled", false);

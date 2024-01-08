@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZTE-MU5001-HACK</title>
+</head>
+<body onload="setChart()">
+    <div id="HACK_MENU">
+        <div class="centered">
+            <h2>
+                <a href="https://github.com/ZTETool/ZTE-MU5001-HACK" target="_blank">ZTE-MU5001-HACK V3.0.0</a>
+            </h2>
+            <a onclick="softwareInfo()">Software version info</a> - <a href="#" onclick="setChart()">Start Chart</a>
+        </div>
+        <div class="chart-container">
+            <canvas id="metricsChart" height="400"></canvas>
+        </div>
+        <div id="METRICS" class="metrics-bar">
+            <div class="metrics-box">
+                <div><span id="network_type">NO SIGNAL</span></div>
+            </div>
+            <div class="metrics-box">
+                <div>Main: <span id="lte_ca_pcell_band"></span>0<span id="lte_ca_pcell_bandwidth">0</span></div>
+                <div>Ca: <span id="lte_multi_ca_scell_info">0</span></div>
+                <div>Cell lock mode: <span id="earfcn_lock">0</span></div>
+                <div class="link-box">
+                    <a onclick="extraBandsInfo()">Extra bands info</a>
+                    <hr>
+                    <a href="#network_info" onclick="scrowDown()">Details ▼</a>
+                </div>
+            </div>
+            <div class="metrics-box">
+                <div>ENB ID: <a id="lteitaly" target="lteitaly" href="#"><span id="enbid">#</span></a></div>
+                <div>CELL ID: <span id="cell_id">#</span></div>
+            </div>
+        </div>
+        <div id="HIDDEN_MENUS" class="menu">
+          <div class="menu-item info-item">
+              <div>WAN IP: <span id="wan_ipaddr">0.0.0.0</span></div>
+              <div>DNS SERVERS: <span id="dns_mode">0.0.0.0|0.0.0.0</span></div>
+          </div>
+
+            <div class="menu-item">
+                <button>General Network</button>
+                <div class="dropdown-content">
+                    <a href="#station_info" onclick="scrowDown()">Connected devices</a>
+                    <a href="#router_setting" onclick="scrowDown()">DHCP/MTU</a>
+                    <a onclick="setDNS()">Set custom DNS</a>
+                    <a href="#firewall" onclick="scrowDown()">Firewall</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button>Wireless</button>
+                <div class="dropdown-content">
+                    <a href="#wifi_main" onclick="scrowDown()">WI-FI main</a>
+                    <a href="#wifi_guest" onclick="scrowDown()">WI-FI guest</a>
+                    <a href="#wps" onclick="scrowDown()">WPS</a>
+                    <a href="#wifi_advance" onclick="scrowDown()">WI-FI advanced settings</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button>Mobile Networks</button>
+                <div class="dropdown-content">
+                    <a href="#internet_setting" onclick="scrowDown()">Connection settings</a>
+                    <a onclick="lteBandSelection()">Set 4g</a>
+                    <a onclick="nrBandSelection()">Set 5g</a>
+                    <a onclick="cellLock()">Cell lock</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button>Sim Card</button>
+                <div class="dropdown-content">
+                    <a href="#traffic_alert" onclick="scrowDown()">Data management</a>
+                    <a href="#phonebook" onclick="scrowDown()">Phonebook</a>
+                    <a href="#sms" onclick="scrowDown()">SMS</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button>Router Management</button>
+                <div class="dropdown-content">
+                    <a href="#reboot" onclick="reboot()">Fast reboot</a>
+                    <a href="#restart" onclick="scrowDown()">Reboot</a>
+                    <a href="#restore" onclick="scrowDown()">Restore</a>
+                    <a href="#password_management" onclick="scrowDown()">Password management</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button>Others</button>
+                <div class="dropdown-content">
+                    <a href="#diagnosis" onclick="scrowDown()">Diagnosis</a>
+                    <a href="#network_info" onclick="scrowDown()">Network status</a>
+                    <a href="#pin_management" onclick="scrowDown()">Pin management</a>
+                    <a href="#SNTP" onclick="scrowDown()">SNTP</a>
+                    <a href="#restart_schedule" onclick="scrowDown()">Reboot scheduling</a>
+                    <a href="#watch_dog_setting" onclick="scrowDown()">Watch dog settings</a>
+                </div>
+            </div>
+            <div class="menu-item temp-item">
+                <a href="#temp_status" onclick="scrowDown()">
+                    4G: <span id="pm_sensor_mdm">0</span>°
+                    5G: <span id="pm_modem_5g">0</span>° ▼
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
