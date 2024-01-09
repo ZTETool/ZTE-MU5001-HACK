@@ -185,7 +185,7 @@ span.statusItem:nth-child(12) > b:nth-child(1) {
 #HACK_MENU button,
 #HACK_MENU .menu-item button,
 #HACK_MENU .dropdown-content a {
-  color: #ff21ff;
+  color: #c114ff;
 }
 
 #HACK_MENU .dropdown-content a:hover {
@@ -193,7 +193,7 @@ span.statusItem:nth-child(12) > b:nth-child(1) {
 }
 
 #network_type {
-    font-size: 5vw;
+    font-size: 2vw;
     font-weight: bold;
     display: block;
     width: 100%;
@@ -201,4 +201,17 @@ span.statusItem:nth-child(12) > b:nth-child(1) {
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
+}
+
+div.metrics-box:nth-child(2) span,
+div.metrics-box:nth-child(3),
+div.menu-item:nth-child(8) > a:nth-child(1),
+div.metrics-box:nth-child(2) > div:nth-child(3),
+div.metrics-box:nth-child(2) > div:nth-child(1),
+div.menu-item:nth-child(1),
+#HACK_MENU a,
+#HACK_MENU button,
+#ca {
+    font-size: 1vw;
+    font-weight: bold;
 }

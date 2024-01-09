@@ -1,4 +1,4 @@
-var version = "V3.0.3";
+var version = "V3.0.4";
 var signal = "";
 var chart;
 var memory = {
@@ -46,7 +46,7 @@ function createLineChart(chartId) {
                     beginAtZero: false,
                     min: -120,
                     max: 30,
-                    stepSize: 20,
+                    stepSize: 10,
                     ticks: {
                         color: '#ffffff',
                         maxRotation: 0,
@@ -168,12 +168,12 @@ function getStatus() {
       pm_modem_5g = Math.abs(parseFloat(pm_modem_5g));
       network_type = getMobileNetworkSymbol(network_type);
 
-      updateChartData(chart, "NR5RSRP", Z5g_rsrp, 'rgba(50, 205, 50, 1)');
-      updateChartData(chart, "SINR5G", Z5g_SINR, 'rgba(245, 155, 39, 0.8)');
-      updateChartData(chart, "RSRP", lte_rsrp, 'rgba(148, 0, 211, 1)');
       updateChartData(chart, "SINR", lte_snr, 'rgba(245, 236, 39, 0.8)');
+      updateChartData(chart, "SINR5G", Z5g_SINR, 'rgba(245, 155, 39, 0.8)');
       updateChartData(chart, "RSRQ", lte_rsrq, 'rgba(67, 147, 221, 0.8)');
       updateChartData(chart, "RSSI", lte_rssi, 'rgba(231, 69, 238, 0.8)');
+      updateChartData(chart, "RSRP", lte_rsrp, 'rgba(148, 0, 211, 1)');
+      updateChartData(chart, "NR5RSRP", Z5g_rsrp, 'rgba(50, 205, 50, 1)');
 
       cellId = parseInt(cell_id, 16);
       enbId = Math.trunc(cellId / 256);
@@ -221,7 +221,7 @@ function getStatus() {
       lte_multi_ca_scell_info = caTxt;
 
       if ("manual" == dns_mode) {
-        dns_mode = prefer_dns_manual + " ," + standby_dns_manual;
+        dns_mode = prefer_dns_manual + ", " + standby_dns_manual;
       }
 
       dns_mode = dns_mode.replace(/,+$/, "");
@@ -266,7 +266,8 @@ function softwareInfo() {
     },
     dataType: "json",
     success: function (res) {
-      info = "HW version: " + res.hardware_version +
+      info = "ZTE-MU5001-HACK: " + version +
+             "\nWEB version: " + res.web_version +
              "\nWEB version: " + res.web_version +
              "\nWA INNER version: " + res.wa_inner_version;
 
