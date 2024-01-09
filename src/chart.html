@@ -9,7 +9,7 @@
     <div id="HACK_MENU">
         <div class="centered">
             <h2>
-                <a href="https://github.com/ZTETool/ZTE-MU5001-HACK" target="_blank">ZTE-MU5001-HACK V3.0.1</a>
+                <a href="https://github.com/ZTETool/ZTE-MU5001-HACK" target="_blank">ZTE-MU5001-HACK V3.0.2</a>
             </h2>
             <a onclick="softwareInfo()">Software version info</a> - <a href="#" onclick="setChart()">Start Chart</a>
         </div>
@@ -46,8 +46,17 @@
                 <div class="dropdown-content">
                     <a href="#station_info" onclick="scrowDown()">Connected devices</a>
                     <a href="#router_setting" onclick="scrowDown()">DHCP/MTU</a>
+                    <a href="#bind_addr_lan" onclick="scrowDown()">MAC-IP Bind</a>
                     <a onclick="setDNS()">Set custom DNS</a>
                     <a href="#firewall" onclick="scrowDown()">Firewall</a>
+                    <a href="#port_filter" onclick="scrowDown()">Port Filter</a>
+                    <a href="#port_forward" onclick="scrowDown()">Port Forward</a>
+                    <a href="#port_map" onclick="scrowDown()">Port Map</a>
+                    <a href="#upnp" onclick="scrowDown()">UPnP</a>
+                    <a href="#dmz" onclick="scrowDown()">DMZ</a>
+                    <a href="#vpn_client" onclick="scrowDown()">VPN client</a>
+                    <a href="#system_security" onclick="scrowDown()">WAN Access</a>
+
                 </div>
             </div>
             <div class="menu-item">
@@ -63,6 +72,9 @@
                 <button>Mobile Networks</button>
                 <div class="dropdown-content">
                     <a href="#internet_setting" onclick="scrowDown()">Connection settings</a>
+                    <a href="#dial_setting" onclick="scrowDown()">Connection Mode</a>
+                    <a href="#net_select" onclick="scrowDown()">Network Selection</a>
+                    <a href="#apn_setting" onclick="scrowDown()">APN Settings</a>
                     <a onclick="lteBandSelection()">Set 4g</a>
                     <a onclick="nrBandSelection()">Set 5g</a>
                     <a onclick="cellLock()">Cell lock</a>
@@ -74,6 +86,7 @@
                     <a href="#traffic_alert" onclick="scrowDown()">Data management</a>
                     <a href="#phonebook" onclick="scrowDown()">Phonebook</a>
                     <a href="#sms" onclick="scrowDown()">SMS</a>
+                    <a href="#sms_setting" onclick="scrowDown()">SMS Settings</a>
                 </div>
             </div>
             <div class="menu-item">
@@ -83,6 +96,13 @@
                     <a href="#restart" onclick="scrowDown()">Reboot</a>
                     <a href="#restore" onclick="scrowDown()">Restore</a>
                     <a href="#password_management" onclick="scrowDown()">Password management</a>
+                    <a href="#ota_update" onclick="scrowDown()">OTA Update</a>
+                    <a href="#fastboot" onclick="scrowDown()">FastBoot</a>
+                    <a href="#sleep_mode" onclick="scrowDown()">Sleep Mode</a>
+                    <a href="#pcie_powersave" onclick="scrowDown()">PCIe Powersave</a>
+                    <a href="#bsp_tc_settings" onclick="scrowDown()">Temperature Control</a>
+                    <a href="#mec_setting" onclick="scrowDown()">MEC coordination</a>
+                    <a href="#debug_page" onclick="scrowDown()">Debug Page</a>
                 </div>
             </div>
             <div class="menu-item">

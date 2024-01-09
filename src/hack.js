@@ -1,4 +1,4 @@
-var version = "V3.0.1";
+var version = "V3.0.2";
 var signal = "";
 var chart;
 var memory = {
@@ -201,6 +201,8 @@ function getStatus() {
       linkLte =
         "https://www.cellmapper.net/map?MCC=" + plmn + "." + enbId;
       $("#lteitaly").attr("href", linkLte);
+
+      // fix the ids below
 
       if ("ca_activated" == wan_lte_ca) {
         $("#ca").parent().parent().css("border-color", "red");
