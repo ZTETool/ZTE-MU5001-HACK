@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "ZTE-MU5001-HACK",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Enables hidden menus and metrics for the ZTE-MU5001 router.",
   "permissions": [
     "http://192.168.0.1/*",

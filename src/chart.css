@@ -9,8 +9,12 @@ span.statusItem:nth-child(12) > b:nth-child(1) {
   color: green;
 }
 
-#HACK_MENU, #HACK_MENU * {
+#HACK_MENU div {
   color: #ffffff;
+}
+
+#HACK_MENU span {
+  color: green;
 }
 
 #HACK_MENU a {
@@ -136,10 +140,11 @@ span.statusItem:nth-child(12) > b:nth-child(1) {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: space-around;
   margin: 0;
   padding: 10px;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 #HACK_MENU .metrics-box div,
@@ -174,4 +179,26 @@ span.statusItem:nth-child(12) > b:nth-child(1) {
 #HACK_MENU .info-item {
   flex-basis: content;
   margin: 0;
+}
+
+#HACK_MENU a,
+#HACK_MENU button,
+#HACK_MENU .menu-item button,
+#HACK_MENU .dropdown-content a {
+  color: #ff21ff;
+}
+
+#HACK_MENU .dropdown-content a:hover {
+  color: green;
+}
+
+#network_type {
+    font-size: 5vw;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
 }

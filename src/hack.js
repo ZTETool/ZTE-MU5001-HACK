@@ -1,4 +1,4 @@
-var version = "V3.0.2";
+var version = "V3.0.3";
 var signal = "";
 var chart;
 var memory = {
@@ -74,21 +74,9 @@ function createLineChart(chartId) {
                   },
                 }
             },
-            tooltips: {
-                callbacks: {
-                    label: function(context) {
-                        const datasetLabel = context.dataset.label || '';
-                        const yLabel = context.parsed.y + ' dBm';
-                        return `${datasetLabel}: ${yLabel}`;
-                    },
-                    title: function(tooltipItems) {
-                        return `Time: ${tooltipItems[0].label}`;
-                    }
-                }
-            },
             elements: {
                 point: {
-                    pointStyle: 'circle',
+                    pointStyle: 'dash',
                 },
                 line: {
                     backgroundColor: gradient,
@@ -205,9 +193,9 @@ function getStatus() {
       // fix the ids below
 
       if ("ca_activated" == wan_lte_ca) {
-        $("#ca").parent().parent().css("border-color", "red");
+        $("#ca").parent().css("border-color", "red");
       } else {
-        $("#ca").parent().parent().css("border-color", "#bbb");
+        $("#ca").parent().css("border-color", "#bbb");
       }
 
       if ("" != lte_multi_ca_scell_info) {
@@ -217,12 +205,7 @@ function getStatus() {
           d = caV[i].split(",");
           b = d[3];
           w = d[5];
-          caTxt +=
-            '<span style="color:#b00;">B' +
-            b +
-            "</span>(@" +
-            w +
-            "Mhz)+";
+          caTxt += '<span style="color:#b00;">B' + b + "</span>(@" + w + "Mhz)+";
         }
         lteCaPcellBand = "B" + lte_ca_pcell_band;
       } else {
@@ -231,23 +214,20 @@ function getStatus() {
       }
 
       if (data.nr5g_action_band) {
-        caTxt +=
-          '<span style="padding:5px;border-radius:3px;font-size:1.2em;background-color:#eef;color:red;font-weight:bold;">' +
-          data.nr5g_action_band +
-          "</span>";
+        caTxt += '<span style="padding:5px;border-radius:3px;font-size:1.2em;background-color:#eef;color:red;font-weight:bold;">' + data.nr5g_action_band + "</span>";
       }
 
       caTxt = caTxt.slice(0, -1);
-      lteMultiCaScellInfo = caTxt;
+      lte_multi_ca_scell_info = caTxt;
 
       if ("manual" == dns_mode) {
         dns_mode = prefer_dns_manual + " ," + standby_dns_manual;
       }
 
       dns_mode = dns_mode.replace(/,+$/, "");
-      dns_mode = '<span style="color:#b00;">' + dns_mode + "</span>";
+      dns_mode = '<span>' + dns_mode + "</span>";
 
-      lteCaPcellBandwidth =
+      lte_ca_pcell_bandwidth =
         lte_ca_pcell_bandwidth && "(@" + lte_ca_pcell_bandwidth + "Mhz)";
 
       for (i = 0; i < vars.length; i++) {

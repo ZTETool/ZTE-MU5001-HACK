@@ -9,9 +9,9 @@
     <div id="HACK_MENU">
         <div class="centered">
             <h2>
-                <a href="https://github.com/ZTETool/ZTE-MU5001-HACK" target="_blank">ZTE-MU5001-HACK V3.0.2</a>
+                <a href="https://github.com/ZTETool/ZTE-MU5001-HACK" target="_blank">ZTE-MU5001-HACK V3.0.3</a>
             </h2>
-            <a onclick="softwareInfo()">Software version info</a> - <a href="#" onclick="setChart()">Start Chart</a>
+            <a onclick="softwareInfo()">Software version info</a> - <a href="#" onclick="setChart()">Click here to (re)start metrics</a>
         </div>
         <div class="chart-container">
             <canvas id="metricsChart" height="400"></canvas>
@@ -21,9 +21,9 @@
                 <div><span id="network_type">NO SIGNAL</span></div>
             </div>
             <div class="metrics-box">
-                <div>Main: <span id="lte_ca_pcell_band"></span>0<span id="lte_ca_pcell_bandwidth">0</span></div>
-                <div>Ca: <span id="lte_multi_ca_scell_info">0</span></div>
-                <div>Cell lock mode: <span id="earfcn_lock">0</span></div>
+                <div>MAIN:<span id="lte_ca_pcell_band"></span><span id="lte_ca_pcell_bandwidth">-</span></div>
+                <div id="ca">CA:<span id="lte_multi_ca_scell_info">-</span></div>
+                <div>Cell lock mode: <span id="earfcn_lock">-</span></div>
                 <div class="link-box">
                     <a onclick="extraBandsInfo()">Extra bands info</a>
                     <hr>
@@ -38,7 +38,7 @@
         <div id="HIDDEN_MENUS" class="menu">
           <div class="menu-item info-item">
               <div>WAN IP: <span id="wan_ipaddr">0.0.0.0</span></div>
-              <div>DNS SERVERS: <span id="dns_mode">0.0.0.0|0.0.0.0</span></div>
+              <div>DNS SERVERS: <span id="dns_mode">0.0.0.0, 0.0.0.0</span></div>
           </div>
 
             <div class="menu-item">
