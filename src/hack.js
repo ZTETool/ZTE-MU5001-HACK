@@ -1,4 +1,4 @@
-var version = "V3.0.0";
+var version = "V3.0.1";
 var signal = "";
 var chart;
 var memory = {
