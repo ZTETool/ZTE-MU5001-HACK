@@ -1,5 +1,12 @@
 # ZTE-MU5001-HACK
 
+## IMPORTANT NOTICE, READ!
+
+Me, the creator of this project managed to fry my router/modem attempting some external antennas, after this I put this project a bit aside, if a saviour would like to contribute to the project we need two things:
+
+- 1: A list of firmware versions/build/region that work with this code (please comment on this issue: https://github.com/ZTETool/ZTE-MU5001-HACK/issues/6)
+- 2: An working iso image extracted with dd and [binwalk](https://github.com/ReFirmLabs/binwalk) it so people that has an incompatible firmware can install it as an update and use our exploit.
+
 ## ABOUT
 
 This fork of [ZTE-MU5001-BROWSER-HACK](https://github.com/githubxbox/ZTE-MU5001-BROWSER-HACK]) improves front-end menu, documentation regarding available menus, provides the original approach of copy-paste from the V1 and adds a Firefox extension as a V2, the code was also refactored in order to be more readable and make it easier for any further modifications.
