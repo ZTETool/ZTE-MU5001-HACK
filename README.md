@@ -2,6 +2,8 @@
 
 ## IMPORTANT NOTICE, READ!
 
+NO ROOT ACCESS!!!! ROOT IS OUT OF THE SCOPE OF THIS PROJECT. I'M HAPPY TO IMPLEMENT IT IF SOMEONE MANAGES TO CRACK IT, BUT FOR NOW, THAT'S NOT DOABLE.
+
 Me, the creator of this project managed to fry my router/modem attempting some external antennas, after this I put this project a bit aside, if a saviour would like to contribute to the project we need two things:
 
 - 1: A list of firmware versions/build/region that work with this code (please comment on this issue: https://github.com/ZTETool/ZTE-MU5001-HACK/issues/6)
